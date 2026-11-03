@@ -13,6 +13,7 @@ const collections = [
     description: "Considered details for the spaces you call yours.",
     image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900",
     href: "/shop?category=home-living",
+    comingSoon: false,
   },
   {
     number: "03",
@@ -20,6 +21,7 @@ const collections = [
     description: "Useful pieces for wherever the day takes you.",
     image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=900",
     href: "/shop?category=everyday-essentials",
+    comingSoon: false,
   },
 ];
 
