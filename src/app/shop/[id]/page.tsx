@@ -8,19 +8,18 @@ type Variant = {
   price: number;
   is_enabled: boolean;
   is_available: boolean;
-  options?: Record<string, string | number>;
+  options?: Array<string | number> | Record<string, string | number>;
 };
 
-type ProductOption = {
-  name: string;
-  type?: string;
-};
+type ProductOptionValue = { id: string | number; title: string };
+type ProductOption = { name: string; type?: string; values?: ProductOptionValue[] };
+type ProductImage = { src: string; variant_ids?: number[]; is_default?: boolean };
 
 type Product = {
   id: string;
   title: string;
   description: string;
-  images: string[];
+  images: ProductImage[];
   options?: ProductOption[];
   variants: Variant[];
 };
@@ -140,21 +139,24 @@ export default function ProductPage() {
     : Array.from(
         new Set(
           availableVariants.flatMap((variant) =>
-            Object.keys(variant.options || {}).filter((key) => !/^\\d+$/.test(key))
+            Array.isArray(variant.options)
+              ? []
+              : Object.keys(variant.options || {}).filter((key) => !/^\\d+$/.test(key))
           )
         )
       );
 
   const getOptionValue = (variant: Variant | undefined, name: string) => {
     if (!variant) return undefined;
-    const directValue = variant.options?.[name];
-    if (directValue !== undefined) return directValue;
-
-    const optionIndex = product.options?.findIndex((option) => option.name === name);
-    if (optionIndex !== undefined && optionIndex >= 0) {
-      return variant.options?.[String(optionIndex)];
-    }
-    return undefined;
+    const optionIndex = product.options?.findIndex((option) => option.name === name) ?? -1;
+    const rawValue = Array.isArray(variant.options)
+      ? variant.options[optionIndex]
+      : variant.options?.[name] ?? (optionIndex >= 0 ? variant.options?.[String(optionIndex)] : undefined);
+    if (rawValue === undefined) return undefined;
+    const matchingChoice = optionIndex >= 0
+      ? product.options?.[optionIndex]?.values?.find((choice) => String(choice.id) === String(rawValue))
+      : undefined;
+    return matchingChoice?.title ?? rawValue;
   };
 
   const optionGroups = optionNames.map((name) => ({
@@ -169,9 +171,10 @@ export default function ProductPage() {
     ),
   }));
 
-  const colourGroup = optionGroups.find(({ name }) =>
-    /colou?r/i.test(name)
-  );
+  const colourGroup = optionGroups.find(({ name }) => {
+    const option = product.options?.find((item) => item.name === name);
+    return /colou?r/i.test(name) || /color/i.test(option?.type || "");
+  });
   const dropdownGroups = optionGroups.filter(
     ({ name }) => !/colou?r/i.test(name)
   );
@@ -179,9 +182,8 @@ export default function ProductPage() {
   function chooseOption(optionName: string, value: string) {
     const exactMatch = selectableVariants.find((variant) =>
       optionNames.every((name) =>
-        String(
-          name === optionName ? value : getOptionValue(activeVariant || undefined, name) ?? ""
-        ) === String(getOptionValue(variant, name) ?? "")
+        String(name === optionName ? value : getOptionValue(activeVariant || undefined, name) ?? "") ===
+        String(getOptionValue(variant, name) ?? "")
       )
     );
 
@@ -192,6 +194,12 @@ export default function ProductPage() {
     const nextVariant = exactMatch || matchingOption;
     if (nextVariant) setSelectedVariant(nextVariant.id);
   }
+
+  const matchingImageIndex = product.images.findIndex((image) =>
+    image.variant_ids?.includes(selectedVariant ?? -1)
+  );
+  const displayedImageIndex = matchingImageIndex >= 0 ? matchingImageIndex : selectedImage;
+  const displayedImage = product.images[displayedImageIndex];
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
@@ -212,9 +220,9 @@ export default function ProductPage() {
       <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-5 sm:gap-10 sm:px-8 sm:py-8 md:grid-cols-[1.08fr_0.92fr] md:gap-16 md:px-10 md:py-14">
         <div>
           <div className="mx-auto flex aspect-[5/4] w-full max-w-[560px] items-center justify-center overflow-hidden bg-[#F0E9E1] sm:aspect-square md:aspect-[4/5] md:max-h-[560px]">
-            {product.images?.[selectedImage] ? (
+            {displayedImage?.src ? (
               <img
-                src={product.images[selectedImage]}
+                src={displayedImage.src}
                 alt={product.title}
                 className="h-full w-full object-contain p-2 sm:p-5"
               />
@@ -234,13 +242,13 @@ export default function ProductPage() {
                   aria-label={`View product image ${index + 1}`}
                   aria-pressed={selectedImage === index}
                   className={`h-16 w-16 shrink-0 overflow-hidden border sm:h-20 sm:w-20 ${
-                    selectedImage === index
+                    displayedImageIndex === index
                       ? "border-[#3A1825]"
                       : "border-transparent"
                   }`}
                 >
                   <img
-                    src={image}
+                    src={image.src}
                     alt={`${product.title} view ${index + 1}`}
                     className="h-full w-full object-contain bg-[#F0E9E1] p-1"
                   />
