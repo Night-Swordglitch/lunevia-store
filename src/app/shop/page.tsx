@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useCart } from "@/components/CartProvider";
 
 type Variant = {
   id: number;
@@ -35,6 +36,7 @@ function cleanDescription(description: string) {
 }
 
 export default function ShopPage() {
+  const { cartCount } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -87,6 +89,7 @@ export default function ShopPage() {
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="text-[#A88753]">Shop</a>
             <a href="/#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
+            <a href="/cart" className="transition hover:text-[#A88753]">Bag ({cartCount})</a>
           </div>
           <span className="hidden text-[9px] uppercase tracking-[0.16em] text-[#A88753] sm:inline">The Collection</span>
         </nav>
