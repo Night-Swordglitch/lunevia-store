@@ -231,6 +231,10 @@ export default function ProductPage() {
           </nav>
         </div>
       </header>
+      <div className="border-b border-[#3A1825]/10 bg-[#F2EBE3] px-4 py-2 text-center text-[9px] uppercase tracking-[0.12em] text-[#75675D]">
+        Purchasing is temporarily unavailable. Displayed prices are for reference only.
+      </div>
+
 
       <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-7 px-4 py-6 sm:gap-10 sm:px-8 sm:py-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-10 md:py-14">
         <div>
