@@ -141,7 +141,7 @@ export default function ProductPage() {
           availableVariants.flatMap((variant) =>
             Array.isArray(variant.options)
               ? []
-              : Object.keys(variant.options || {}).filter((key) => !/^\\d+$/.test(key))
+              : Object.keys(variant.options || {}).filter((key) => !/^\d+$/.test(key))
           )
         )
       );
