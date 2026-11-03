@@ -21,9 +21,6 @@ export const metadata: Metadata = {
   },
   description:
     "Discover thoughtfully selected pieces for beauty, comfort and inspiration in everyday living.",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     url: "https://shoplunevia.vercel.app",
