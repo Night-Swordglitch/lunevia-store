@@ -374,8 +374,7 @@ export default function ProductPage() {
                       value={variant.id}
                       disabled={!variant.is_available}
                     >
-                      {Object.values(variant.options || {}).join(" / ") ||
-                        `Option ${variant.id}`}
+                      Selection {availableVariants.findIndex((item) => item.id === variant.id) + 1}
                       {" — "}{formatPrice(variant.price)}
                       {!variant.is_available ? " — Unavailable" : ""}
                     </option>
