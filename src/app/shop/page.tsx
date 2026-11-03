@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 
 type Variant = {
@@ -69,10 +69,9 @@ export default function ShopPage() {
     return false;
   }
 
-  const visibleProducts = useMemo(
-    () => category ? products.filter((product) => belongsToCategory(product, category)) : products,
-    [products, category]
-  );
+  const visibleProducts = category
+    ? products.filter((product) => belongsToCategory(product, category))
+    : products;
 
   const categoryTitle =
     category === "home-living" ? "Home & Living" :
