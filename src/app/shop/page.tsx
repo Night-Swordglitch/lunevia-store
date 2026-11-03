@@ -177,7 +177,7 @@ export default function ShopPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <header className="sticky top-0 z-50 bg-[linear-gradient(to_bottom,#3A1825_0%,#3A1825_62%,#FAF6F1_100%)]">
+      <header className="sticky top-0 z-50 bg-[linear-gradient(180deg,#3A1825_0%,#482633_24%,#76545C_50%,#B9A5A5_76%,#FAF6F1_100%)]">
         <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
           <div className="flex flex-col items-center pb-5">
             <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#FAF6F1]">
@@ -185,7 +185,7 @@ export default function ShopPage() {
             </a>
             <p className="mt-1 text-[10px] tracking-[0.14em] text-[#E8DCD5]">Elevate the everyday.</p>
           </div>
-          <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 border-t border-[#C9A96E]/30 py-4 font-serif text-xs font-semibold uppercase tracking-[0.16em] text-[#FAF6F1] sm:gap-x-12 md:text-sm">
+          <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 border-t border-[#C9A96E]/40 py-4 font-serif text-xs font-semibold uppercase tracking-[0.16em] text-[#3A1825] sm:gap-x-12 md:text-sm">
             <a href="/" className="transition hover:text-[#C9A96E]">Home</a>
             <a href="/shop" className="text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="transition hover:text-[#C9A96E]">Our Philosophy</a>
