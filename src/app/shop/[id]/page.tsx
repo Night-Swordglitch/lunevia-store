@@ -217,15 +217,16 @@ export default function ProductPage() {
             </a>
             <p className="mt-1 text-[10px] tracking-[0.14em] text-[#E8DCD5]">Elevate the everyday.</p>
           </div>
-          <nav aria-label="Main navigation" className="flex flex-nowrap items-center justify-center gap-x-4 border-t border-[#C9A96E]/30 py-4 font-serif text-[9px] font-bold uppercase tracking-[0.08em] text-[#FAF6F1] sm:gap-x-8 sm:text-xs sm:tracking-[0.12em] md:text-sm md:tracking-[0.18em]">
+          <nav aria-label="Main navigation" className="flex flex-nowrap items-center justify-center gap-x-5 border-t border-[#C9A96E]/30 py-4 font-serif text-[10px] font-bold uppercase tracking-[0.08em] text-[#FAF6F1] sm:gap-x-10 sm:text-[13px] sm:tracking-[0.12em] md:gap-x-14 md:text-sm md:tracking-[0.16em]">
             <a href="/" className="whitespace-nowrap transition hover:text-[#C9A96E]">Home</a>
             <a href="/shop" className="whitespace-nowrap transition hover:text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="whitespace-nowrap transition hover:text-[#C9A96E]">Our Philosophy</a>
-            <a href="/cart" aria-label="Shopping bag" className="inline-flex shrink-0 items-center transition hover:text-[#C9A96E]">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-[17px] w-[17px] sm:h-[19px] sm:w-[19px]">
+            <a href="/cart" aria-label={`Shopping bag, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1.5 transition hover:text-[#C9A96E]">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px] sm:h-5 sm:w-5">
                 <path d="M5 8h14l1 13H4L5 8Z" />
                 <path d="M9 8V6a3 3 0 0 1 6 0v2" />
               </svg>
+              {cartCount > 0 && <span className="text-[10px] font-semibold sm:text-xs">{cartCount}</span>}
             </a>
           </nav>
         </div>
