@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 
 type Variant = {
@@ -40,6 +40,44 @@ export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [category, setCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCategory(new URLSearchParams(window.location.search).get("category"));
+  }, []);
+
+  function belongsToCategory(product: Product, selectedCategory: string) {
+    const title = product.title.toLowerCase();
+
+    if (selectedCategory === "home-living") {
+      return title.includes("blackberry vanilla candle") ||
+        title.includes("abstract wave desk mat");
+    }
+
+    if (selectedCategory === "everyday-essentials") {
+      return [
+        "wherever you land hoodie",
+        "minimal fanny pack",
+        "two years of awesomeness journal",
+        "travel accessory pouch",
+        "heart necklace set",
+        "slide sandals",
+        "heavy blend crewneck",
+      ].some((keyword) => title.includes(keyword));
+    }
+
+    return false;
+  }
+
+  const visibleProducts = useMemo(
+    () => category ? products.filter((product) => belongsToCategory(product, category)) : products,
+    [products, category]
+  );
+
+  const categoryTitle =
+    category === "home-living" ? "Home & Living" :
+    category === "everyday-essentials" ? "Everyday Essentials" :
+    category === "beauty-care" ? "Beauty & Care" : "Thoughtfully selected";
 
   useEffect(() => {
     async function loadProducts() {
@@ -110,12 +148,12 @@ export default function ShopPage() {
               DISCOVER LUNÉVIA
             </p>
             <h2 className="mt-3 font-serif text-4xl text-[#3A1825]">
-              Thoughtfully selected
+              {categoryTitle}
             </h2>
           </div>
 
           <p className="text-xs text-[#75675D]">
-            {loading ? "Loading the collection..." : `${products.length} products`}
+            {loading ? "Loading the collection..." : `${visibleProducts.length} products`}
           </p>
         </div>
 
@@ -145,15 +183,25 @@ export default function ShopPage() {
           </div>
         )}
 
-        {!loading && !error && products.length === 0 && (
-          <p className="py-20 text-center text-[#75675D]">
-            There are no products to display right now.
-          </p>
+        {!loading && !error && visibleProducts.length === 0 && (
+          <div className="py-20 text-center">
+            <p className="font-serif text-2xl text-[#3A1825]">
+              {category === "beauty-care" ? "Coming soon." : "No products in this collection yet."}
+            </p>
+            <p className="mt-3 text-sm text-[#75675D]">
+              {category === "beauty-care"
+                ? "We're thoughtfully curating this collection. Please check back soon."
+                : "Explore the full LUNÉVIA collection to discover all available pieces."}
+            </p>
+            <a href="/shop" className="mt-6 inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.18em] text-[#3A1825]">
+              View all pieces
+            </a>
+          </div>
         )}
 
-        {!loading && !error && products.length > 0 && (
+        {!loading && !error && visibleProducts.length > 0 && (
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => {
+            {visibleProducts.map((product) => {
               const price = getPrice(product);
               const image = product.images?.[0]?.src;
               const description = cleanDescription(product.description || "");
