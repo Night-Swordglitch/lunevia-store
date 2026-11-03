@@ -1,195 +1,129 @@
+"use client";
+
 const collections = [
   {
     number: "01",
     name: "Beauty & Care",
     description: "Thoughtful touches for your daily rituals.",
-    image:
-      "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=900",
+    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=900",
   },
   {
     number: "02",
     name: "Home & Living",
-    description: "Elevate the spaces you call yours.",
-    image:
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900",
+    description: "Considered details for the spaces you call yours.",
+    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900",
   },
   {
     number: "03",
     name: "Everyday Essentials",
-    description: "Designed around the way you live.",
-    image:
-      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=900",
+    description: "Useful pieces for wherever the day takes you.",
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=900",
   },
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <div className="bg-[#3A1825] px-4 py-2 text-center text-[10px] tracking-[0.2em] text-[#F8E9D8]">
-        Complimentary delivery on orders over $30
-      </div>
-
-      <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur-md">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <a
-            href="/"
-            className="text-2xl font-serif tracking-[0.18em] text-[#3A1825]"
-          >
+      <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
+          <a href="/" aria-label="LUNÉVIA home" className="font-serif text-[1.45rem] tracking-[0.2em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
-
-          <div className="hidden items-center gap-9 text-[11px] uppercase tracking-[0.18em] md:flex">
-            <a href="/" className="hover:text-[#C9A96E]">Home</a>
-            <a href="/shop" className="hover:text-[#C9A96E]">Shop</a>
-            <a href="#philosophy" className="hover:text-[#C9A96E]">Our Philosophy</a>
+          <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.16em] text-[#66584F] md:gap-10">
+            <a href="/" className="transition hover:text-[#A88753]">Home</a>
+            <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
+            <a href="#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
           </div>
-
-          <a
-            href="/shop"
-            className="border border-[#3A1825] px-5 py-2.5 text-[10px] uppercase tracking-[0.15em] transition hover:bg-[#3A1825] hover:text-white"
-          >
+          <a href="/shop" className="border-b border-[#3A1825] pb-1 text-[10px] uppercase tracking-[0.16em] text-[#3A1825] transition hover:border-[#C9A96E] hover:text-[#A88753]">
             Discover
           </a>
         </nav>
       </header>
 
-      <section id="home" className="relative overflow-hidden bg-[#3A1825]">
-        <div className="mx-auto grid min-h-[600px] max-w-7xl md:grid-cols-2">
-          <div className="flex flex-col justify-center px-8 py-24 text-[#FAF6F1] md:px-16 lg:px-24">
-            <p className="mb-7 text-[10px] tracking-[0.35em] text-[#C9A96E]">
-              THE ART OF EVERYDAY LIVING
-            </p>
-
-            <h1 className="max-w-xl font-serif text-5xl leading-[1.15] md:text-7xl">
-              Elevate the
-              <br />
-              everyday<span className="text-[#C9A96E]">.</span>
-            </h1>
-
-            <p className="mt-7 max-w-sm text-sm leading-7 text-[#E6D7D2]">
-              Discover considered pieces that bring beauty, comfort and
-              inspiration to the everyday.
-            </p>
-
-            <div className="mt-10">
-              <a
-                href="/shop"
-                className="inline-block border border-[#C9A96E] bg-[#C9A96E] px-9 py-4 text-[10px] uppercase tracking-[0.2em] text-[#3A1825] transition hover:bg-transparent hover:text-[#C9A96E]"
-              >
-                Discover LUNÉVIA
-              </a>
-            </div>
-
-            <p className="mt-16 text-[9px] tracking-[0.3em] text-[#C9A96E]/70">
-              THOUGHTFULLY CHOSEN. BEAUTIFULLY LIVED.
-            </p>
+      <section className="grid min-h-[620px] bg-[#3A1825] md:grid-cols-2">
+        <div className="flex flex-col justify-center px-8 py-20 text-[#FAF6F1] md:px-14 lg:px-24">
+          <p className="text-[9px] tracking-[0.34em] text-[#C9A96E]">THE ART OF EVERYDAY LIVING</p>
+          <h1 className="mt-8 max-w-xl font-serif text-5xl leading-[1.12] md:text-6xl lg:text-7xl">
+            Elevate the<br />everyday<span className="text-[#C9A96E]">.</span>
+          </h1>
+          <p className="mt-7 max-w-sm text-sm leading-7 text-[#E6D7D2]">
+            Considered pieces that bring a little more beauty, comfort and inspiration to everyday living.
+          </p>
+          <div className="mt-10">
+            <a href="/shop" className="inline-flex items-center gap-5 border border-[#C9A96E] px-7 py-4 text-[9px] uppercase tracking-[0.2em] text-[#FAF6F1] transition hover:bg-[#C9A96E] hover:text-[#3A1825]">
+              Discover the collection <span aria-hidden="true">↗</span>
+            </a>
           </div>
-
-          <div
-            className="min-h-[350px] bg-cover bg-center md:min-h-full"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1400')",
-            }}
-          />
         </div>
+        <div
+          role="img"
+          aria-label="A calm, thoughtfully styled living space"
+          className="min-h-[360px] bg-cover bg-center md:min-h-full"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1400')" }}
+        />
       </section>
 
-      <section id="philosophy" className="px-6 py-24 text-center">
-        <p className="text-[10px] tracking-[0.3em] text-[#A88753]">
-          A LITTLE MORE INTENTION
-        </p>
-
-        <h2 className="mt-5 font-serif text-3xl leading-relaxed text-[#3A1825] md:text-5xl">
-          More than products.
-          <br />
-          A considered way of living.
+      <section id="philosophy" className="px-6 py-24 text-center md:py-32">
+        <p className="text-[9px] tracking-[0.32em] text-[#A88753]">A LITTLE MORE INTENTION</p>
+        <h2 className="mx-auto mt-6 max-w-2xl font-serif text-3xl leading-snug text-[#3A1825] md:text-5xl">
+          More than products.<br />A considered way of living.
         </h2>
-
-        <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-[#75675D]">
-          At LUNÉVIA, we believe the smallest details can make a meaningful
-          difference. Explore thoughtfully selected pieces that bring beauty,
-          function and inspiration into everyday living.
+        <p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#75675D]">
+          We believe the smallest details can make a meaningful difference. Explore thoughtfully selected pieces that bring beauty, function and inspiration into everyday living.
         </p>
       </section>
 
-      <section id="collections" className="bg-[#F2EBE3] px-6 py-24">
+      <section id="collections" className="bg-[#F2EBE3] px-6 py-20 md:py-28">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div className="mb-12 flex flex-col justify-between gap-5 md:mb-14 md:flex-row md:items-end">
             <div>
-              <p className="text-[10px] tracking-[0.3em] text-[#A88753]">
-                EXPLORE OUR WORLD
-              </p>
-              <h2 className="mt-4 font-serif text-4xl text-[#3A1825] md:text-5xl">
-                Discover the Collection
-              </h2>
+              <p className="text-[9px] tracking-[0.32em] text-[#A88753]">EXPLORE OUR WORLD</p>
+              <h2 className="mt-4 font-serif text-4xl text-[#3A1825] md:text-5xl">Discover the Collection</h2>
             </div>
-
-            <p className="max-w-xs text-sm leading-6 text-[#75675D]">
-              Thoughtfully selected pieces for every part of your day.
-            </p>
+            <p className="max-w-xs text-sm leading-6 text-[#75675D]">Thoughtfully selected pieces for every part of your day.</p>
           </div>
-
-          <div className="grid gap-7 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3 md:gap-6">
             {collections.map((item) => (
-              <a href="/shop" key={item.number} className="group">
+              <a href="/shop" key={item.number} className="group block">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#E4D9CE]">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url('${item.image}')` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <span className="absolute bottom-7 left-7 text-[10px] tracking-[0.2em] text-white/70">
-                    COLLECTION {item.number}
-                  </span>
+                  <div className="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-[1.03]" style={{ backgroundImage: `url('${item.image}')` }} />
                 </div>
-
-                <h3 className="mt-6 font-serif text-2xl text-[#3A1825]">
-                  {item.name}
-                </h3>
-                <p className="mt-2 text-xs leading-6 text-[#75675D]">
-                  {item.description}
-                </p>
-                <span className="mt-4 inline-block border-b border-[#C9A96E] pb-1 text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-                  View details
-                </span>
+                <div className="flex items-start justify-between gap-4 pt-5">
+                  <div>
+                    <p className="text-[9px] tracking-[0.2em] text-[#A88753]">{item.number}</p>
+                    <h3 className="mt-2 font-serif text-2xl text-[#3A1825]">{item.name}</h3>
+                    <p className="mt-2 text-xs leading-6 text-[#75675D]">{item.description}</p>
+                  </div>
+                  <span className="mt-1 text-lg text-[#A88753] transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+                </div>
               </a>
             ))}
           </div>
+          <div className="mt-14 text-center">
+            <a href="/shop" className="inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.2em] text-[#3A1825] transition hover:border-[#C9A96E] hover:text-[#A88753]">View all pieces</a>
+          </div>
         </div>
       </section>
 
-      <section className="bg-[#3A1825] px-6 py-24 text-center text-[#FAF6F1]">
-        <p className="text-[10px] tracking-[0.3em] text-[#C9A96E]">
-          THE LUNÉVIA PHILOSOPHY
-        </p>
-        <h2 className="mx-auto mt-7 max-w-3xl font-serif text-3xl leading-relaxed md:text-5xl">
-          Thoughtfully chosen for everyday living.
-        </h2>
-        <p className="mt-6 text-xs tracking-[0.15em] text-[#E6D7D2]">
-          SIMPLE DETAILS. MEANINGFUL DIFFERENCE.
-        </p>
+      <section className="bg-[#3A1825] px-6 py-24 text-center text-[#FAF6F1] md:py-28">
+        <p className="text-[9px] tracking-[0.32em] text-[#C9A96E]">THE LUNÉVIA PHILOSOPHY</p>
+        <h2 className="mx-auto mt-7 max-w-3xl font-serif text-3xl leading-snug md:text-5xl">Thoughtfully chosen for everyday living.</h2>
+        <p className="mt-6 text-[9px] tracking-[0.25em] text-[#E6D7D2]">SIMPLE DETAILS. MEANINGFUL DIFFERENCE.</p>
       </section>
 
-      <footer className="px-6 py-14">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-10 md:flex-row">
+      <footer className="px-6 py-12 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <h2 className="font-serif text-3xl tracking-[0.15em] text-[#3A1825]">
-              LUNÉVIA<span className="text-[#C9A96E]">.</span>
-            </h2>
-            <p className="mt-3 text-xs text-[#75675D]">
-              Elevate the everyday.
-            </p>
+            <a href="/" className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]">LUNÉVIA<span className="text-[#C9A96E]">.</span></a>
+            <p className="mt-3 text-xs text-[#75675D]">Elevate the everyday.</p>
           </div>
-
-          <div className="flex flex-col gap-3 text-[10px] uppercase tracking-[0.15em] text-[#75675D]">
-            <a href="/">Home</a>
-            <a href="/shop">Shop</a>
-            <a href="/#philosophy">Our Philosophy</a>
+          <div className="flex gap-7 text-[9px] uppercase tracking-[0.16em] text-[#75675D]">
+            <a href="/" className="hover:text-[#A88753]">Home</a>
+            <a href="/shop" className="hover:text-[#A88753]">Shop</a>
+            <a href="/#philosophy" className="hover:text-[#A88753]">Our Philosophy</a>
           </div>
         </div>
-
-        <div className="mx-auto mt-12 max-w-7xl border-t border-[#3A1825]/15 pt-6 text-center text-[10px] text-[#75675D]">
+        <div className="mx-auto mt-10 max-w-7xl border-t border-[#3A1825]/15 pt-5 text-center text-[9px] tracking-[0.08em] text-[#75675D]">
           © {new Date().getFullYear()} LUNÉVIA. All rights reserved.
         </div>
       </footer>
