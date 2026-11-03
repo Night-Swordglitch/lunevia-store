@@ -209,19 +209,19 @@ export default function ProductPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur">
-        <div className="mx-auto max-w-7xl px-6 py-4 md:px-10">
-          <div className="flex flex-col items-center">
-            <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#3A1825]">
+      <header className="sticky top-0 z-50 border-b border-[#C9A96E]/25 bg-[#3A1825]">
+        <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
+          <div className="flex flex-col items-center pb-5">
+            <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#FAF6F1]">
               LUNÉVIA<span className="text-[#C9A96E]">.</span>
             </a>
-            <p className="mt-1 text-[10px] tracking-[0.12em] text-[#75675D]">Elevate the everyday.</p>
+            <p className="mt-1 text-[10px] tracking-[0.14em] text-[#E8DCD5]">Elevate the everyday.</p>
           </div>
-          <nav aria-label="Main navigation" className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-serif text-xs font-semibold uppercase tracking-[0.12em] text-[#66584F] sm:gap-x-8 md:text-sm">
-            <a href="/" className="transition hover:text-[#A88753]">Home</a>
-            <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
-            <a href="/#philosophy" className="transition hover:text-[#A88753]">Our Philosophy</a>
-            <a href="/cart" className="transition hover:text-[#A88753]">Bag ({cartCount})</a>
+          <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 border-t border-[#C9A96E]/30 py-4 font-serif text-xs font-semibold uppercase tracking-[0.16em] text-[#FAF6F1] sm:gap-x-12 md:text-sm">
+            <a href="/" className="transition hover:text-[#C9A96E]">Home</a>
+            <a href="/shop" className="transition hover:text-[#C9A96E]">Shop</a>
+            <a href="/#philosophy" className="transition hover:text-[#C9A96E]">Our Philosophy</a>
+            <a href="/cart" className="transition hover:text-[#C9A96E]">Bag ({cartCount})</a>
           </nav>
         </div>
       </header>
