@@ -213,7 +213,7 @@ export default function ProductPage() {
                   onClick={() => setSelectedImage(index)}
                   aria-label={`View product image ${index + 1}`}
                   aria-pressed={selectedImage === index}
-                  className={`h-20 w-20 shrink-0 overflow-hidden border ${
+                  className={`h-16 w-16 shrink-0 overflow-hidden border sm:h-20 sm:w-20 ${
                     selectedImage === index
                       ? "border-[#3A1825]"
                       : "border-transparent"
