@@ -118,12 +118,60 @@ export default function ProductPage() {
     (variant) => variant.is_enabled
   );
 
+  const selectableVariants = availableVariants.filter(
+    (variant) => variant.is_available
+  );
+
   const activeVariant = product.variants.find(
     (variant) => variant.id === selectedVariant
   );
 
-  const formatPrice = (price: number) => `$${(price / 100).toFixed(2)}`;
+  const formatPrice = (price: number) => `${(price / 100).toFixed(2)}`;
   const description = cleanDescription(product.description || "");
+
+  const optionNames = Array.from(
+    new Set(
+      availableVariants.flatMap((variant) =>
+        Object.keys(variant.options || {})
+      )
+    )
+  );
+
+  const optionGroups = optionNames.map((name) => ({
+    name,
+    values: Array.from(
+      new Set(
+        availableVariants
+          .map((variant) => variant.options?.[name])
+          .filter((value): value is string | number => value !== undefined)
+          .map(String)
+      )
+    ),
+  }));
+
+  const colourGroup = optionGroups.find(({ name }) =>
+    /colou?r/i.test(name)
+  );
+  const dropdownGroups = optionGroups.filter(
+    ({ name }) => !/colou?r/i.test(name)
+  );
+
+  function chooseOption(optionName: string, value: string) {
+    const currentOptions = activeVariant?.options || {};
+    const exactMatch = selectableVariants.find((variant) =>
+      Object.entries({ ...currentOptions, [optionName]: value }).every(
+        ([name, selectedValue]) =>
+          String(variant.options?.[name] ?? "") === String(selectedValue)
+      )
+    );
+
+    const matchingOption = selectableVariants.find(
+      (variant) => String(variant.options?.[optionName] ?? "") === value
+    );
+
+    const nextVariant = exactMatch || matchingOption;
+    if (nextVariant) setSelectedVariant(nextVariant.id);
+  }
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
@@ -210,38 +258,115 @@ export default function ProductPage() {
             {description || "Discover this piece from LUNÉVIA."}
           </p>
 
-          <div className="mt-9">
+          <div className="mt-9 space-y-6">
             <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-              Choose an option
+              Personalise your selection
             </h2>
 
-            {availableVariants.length > 0 ? (
-              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {availableVariants.map((variant) => (
-                  <button
-                    key={variant.id}
-                    disabled={!variant.is_available}
-                    aria-pressed={selectedVariant === variant.id}
-                    onClick={() => setSelectedVariant(variant.id)}
-                    className={`border px-4 py-4 text-left text-xs transition ${
-                      selectedVariant === variant.id
-                        ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]"
-                        : "border-[#3A1825]/20 text-[#3A1825] hover:border-[#C9A96E]"
-                    } disabled:cursor-not-allowed disabled:opacity-40`}
-                  >
-                    <span className="block">
+            {availableVariants.length > 0 && optionGroups.length > 0 ? (
+              <>
+                {colourGroup && (
+                  <div>
+                    <div className="mb-3 flex items-center justify-between">
+                      <label className="text-xs text-[#3A1825]">
+                        {colourGroup.name}
+                      </label>
+                      <span className="text-xs text-[#75675D]">
+                        {String(activeVariant?.options?.[colourGroup.name] ?? "Select")}
+                      </span>
+                    </div>
+                    <div className="flex gap-2 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:thin]">
+                      {colourGroup.values.map((value) => {
+                        const isSelected =
+                          String(activeVariant?.options?.[colourGroup.name] ?? "") === value;
+                        const isAvailable = selectableVariants.some(
+                          (variant) =>
+                            String(variant.options?.[colourGroup.name] ?? "") === value
+                        );
+
+                        return (
+                          <button
+                            key={value}
+                            type="button"
+                            disabled={!isAvailable}
+                            aria-pressed={isSelected}
+                            onClick={() => chooseOption(colourGroup.name, value)}
+                            className={`shrink-0 whitespace-nowrap border px-4 py-2.5 text-xs transition ${
+                              isSelected
+                                ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]"
+                                : "border-[#3A1825]/20 text-[#3A1825] hover:border-[#C9A96E]"
+                            } disabled:cursor-not-allowed disabled:opacity-35`}
+                          >
+                            {value}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {dropdownGroups.map((group) => (
+                  <div key={group.name}>
+                    <label
+                      htmlFor={`variant-${group.name}`}
+                      className="mb-2 block text-xs text-[#3A1825]"
+                    >
+                      {group.name}
+                    </label>
+                    <select
+                      id={`variant-${group.name}`}
+                      value={String(activeVariant?.options?.[group.name] ?? "")}
+                      onChange={(event) => chooseOption(group.name, event.target.value)}
+                      className="w-full appearance-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none transition focus:border-[#C9A96E]"
+                    >
+                      <option value="" disabled>
+                        Select {group.name.toLowerCase()}
+                      </option>
+                      {group.values.map((value) => {
+                        const isAvailable = selectableVariants.some(
+                          (variant) =>
+                            String(variant.options?.[group.name] ?? "") === value
+                        );
+                        return (
+                          <option key={value} value={value} disabled={!isAvailable}>
+                            {value}{!isAvailable ? " — Unavailable" : ""}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                ))}
+              </>
+            ) : availableVariants.length > 0 ? (
+              <div>
+                <label
+                  htmlFor="variant-fallback"
+                  className="mb-2 block text-xs text-[#3A1825]"
+                >
+                  Available option
+                </label>
+                <select
+                  id="variant-fallback"
+                  value={String(selectedVariant ?? "")}
+                  onChange={(event) => setSelectedVariant(Number(event.target.value))}
+                  className="w-full appearance-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none focus:border-[#C9A96E]"
+                >
+                  {availableVariants.map((variant) => (
+                    <option
+                      key={variant.id}
+                      value={variant.id}
+                      disabled={!variant.is_available}
+                    >
                       {Object.values(variant.options || {}).join(" / ") ||
                         `Option ${variant.id}`}
-                    </span>
-                    <span className="mt-2 block">
-                      {formatPrice(variant.price)}
-                      {!variant.is_available && " · Unavailable"}
-                    </span>
-                  </button>
-                ))}
+                      {" — "}{formatPrice(variant.price)}
+                      {!variant.is_available ? " — Unavailable" : ""}
+                    </option>
+                  ))}
+                </select>
               </div>
             ) : (
-              <p className="mt-4 text-sm text-[#75675D]">
+              <p className="text-sm text-[#75675D]">
                 No options are currently available.
               </p>
             )}
