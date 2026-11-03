@@ -56,6 +56,10 @@ export default function Home() {
           </nav>
         </div>
       </header>
+      <div className="border-b border-[#3A1825]/10 bg-[#F2EBE3] px-4 py-2 text-center text-[9px] uppercase tracking-[0.12em] text-[#75675D]">
+        Purchasing is temporarily unavailable. Displayed prices are for reference only.
+      </div>
+
 
       <section className="grid min-h-[620px] bg-[#3A1825] md:grid-cols-2">
         <div className="flex flex-col justify-center px-8 py-20 text-[#FAF6F1] md:px-14 lg:px-24">
