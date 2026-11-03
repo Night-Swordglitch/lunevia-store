@@ -126,7 +126,7 @@ export default function ProductPage() {
     (variant) => variant.id === selectedVariant
   );
 
-  const formatPrice = (price: number) => `${(price / 100).toFixed(2)}`;
+  const formatPrice = (price: number) => "$" + (price / 100).toFixed(2);
   const description = cleanDescription(product.description || "");
 
   const optionNames = Array.from(
