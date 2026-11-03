@@ -46,27 +46,88 @@ export default function ShopPage() {
     setCategory(new URLSearchParams(window.location.search).get("category"));
   }, []);
 
+  const shopCategories = [
+    { slug: "accessories", name: "Accessories" },
+    { slug: "footwear", name: "Footwear" },
+    { slug: "fragrance", name: "Fragrance" },
+    { slug: "gifts", name: "Gifts" },
+    { slug: "home-decor", name: "Home Decor" },
+    { slug: "men", name: "Men" },
+    { slug: "new-arrivals", name: "New Arrivals" },
+    { slug: "room-decor", name: "Room Decor" },
+    { slug: "travel", name: "Travel" },
+    { slug: "women", name: "Women" },
+  ];
+
+  const categoryKeywords: Record<string, string[]> = {
+    "home-living": [
+      "blackberry vanilla candle",
+      "abstract wave desk mat",
+      "men's fragrance organizer",
+      "mens fragrance organizer",
+    ],
+    "everyday-essentials": [
+      "wherever you land hoodie",
+      "minimal fanny pack",
+      "two years of awesomeness journal",
+      "travel accessory pouch",
+      "heart necklace set",
+      "slide sandals",
+      "heavy blend crewneck",
+      "memory foam travel neck pillow",
+    ],
+    accessories: [
+      "two years of awesomeness journal",
+      "minimal fanny pack",
+      "travel accessory pouch",
+      "heart necklace set",
+      "abstract wave desk mat",
+    ],
+    footwear: ["slide sandals"],
+    fragrance: [
+      "blackberry vanilla candle",
+      "men's fragrance organizer",
+      "mens fragrance organizer",
+    ],
+    gifts: [
+      "two years of awesomeness journal",
+      "blackberry vanilla candle",
+      "heart necklace set",
+    ],
+    "home-decor": ["blackberry vanilla candle"],
+    men: [
+      "wherever you land hoodie",
+      "heavy blend crewneck",
+      "minimal fanny pack",
+    ],
+    "new-arrivals": [],
+    "room-decor": [
+      "blackberry vanilla candle",
+      "abstract wave desk mat",
+      "men's fragrance organizer",
+      "mens fragrance organizer",
+    ],
+    travel: [
+      "wherever you land hoodie",
+      "minimal fanny pack",
+      "travel accessory pouch",
+      "memory foam travel neck pillow",
+    ],
+    women: [
+      "wherever you land hoodie",
+      "slide sandals",
+      "heart necklace set",
+    ],
+  };
+
   function belongsToCategory(product: Product, selectedCategory: string) {
+    if (selectedCategory === "new-arrivals") return true;
+
+    const keywords = categoryKeywords[selectedCategory];
+    if (!keywords) return false;
+
     const title = product.title.toLowerCase();
-
-    if (selectedCategory === "home-living") {
-      return title.includes("blackberry vanilla candle") ||
-        title.includes("abstract wave desk mat");
-    }
-
-    if (selectedCategory === "everyday-essentials") {
-      return [
-        "wherever you land hoodie",
-        "minimal fanny pack",
-        "two years of awesomeness journal",
-        "travel accessory pouch",
-        "heart necklace set",
-        "slide sandals",
-        "heavy blend crewneck",
-      ].some((keyword) => title.includes(keyword));
-    }
-
-    return false;
+    return keywords.some((keyword) => title.includes(keyword));
   }
 
   const visibleProducts = category
@@ -76,7 +137,9 @@ export default function ShopPage() {
   const categoryTitle =
     category === "home-living" ? "Home & Living" :
     category === "everyday-essentials" ? "Everyday Essentials" :
-    category === "beauty-care" ? "Beauty & Care" : "Thoughtfully selected";
+    category === "beauty-care" ? "Beauty & Care" :
+    shopCategories.find((item) => item.slug === category)?.name ??
+    "All Products";
 
   useEffect(() => {
     async function loadProducts() {
@@ -140,7 +203,30 @@ export default function ShopPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+      <section className="mx-auto max-w-7xl px-6 pt-10 md:px-10">
+        <div>
+          <p className="text-[9px] tracking-[0.28em] text-[#A88753]">BROWSE BY CATEGORY</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a
+              href="/shop"
+              className={`border px-4 py-2 text-[9px] uppercase tracking-[0.14em] transition ${!category ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]" : "border-[#3A1825]/20 text-[#66584F] hover:border-[#C9A96E] hover:text-[#3A1825]"}`}
+            >
+              All
+            </a>
+            {shopCategories.map((item) => (
+              <a
+                key={item.slug}
+                href={`/shop?category=${item.slug}`}
+                className={`border px-4 py-2 text-[9px] uppercase tracking-[0.14em] transition ${category === item.slug ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]" : "border-[#3A1825]/20 text-[#66584F] hover:border-[#C9A96E] hover:text-[#3A1825]"}`}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-20">
         <div className="mb-10 flex flex-col justify-between gap-4 border-b border-[#3A1825]/10 pb-5 md:flex-row md:items-end">
           <div>
             <p className="text-[9px] tracking-[0.28em] text-[#A88753]">
