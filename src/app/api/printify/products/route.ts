@@ -54,6 +54,7 @@ export async function GET() {
     const formattedProducts = products.map((product: any) => ({
       id: product.id,
       title: product.title,
+      created_at: product.created_at ?? null,
       description: product.description,
       options: product.options ?? [],
       images: (product.images ?? []).map((image: any) => ({
