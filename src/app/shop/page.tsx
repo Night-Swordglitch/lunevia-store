@@ -185,7 +185,7 @@ export default function ShopPage() {
             </a>
             <p className="mt-1 text-[10px] tracking-[0.14em] text-[#E8DCD5]">Elevate the everyday.</p>
           </div>
-          <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 border-t border-[#C9A96E]/40 py-4 font-serif text-xs font-semibold uppercase tracking-[0.16em] text-[#3A1825] sm:gap-x-12 md:text-sm">
+          <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 border-t border-[#C9A96E]/40 py-4 font-serif text-xs font-bold uppercase tracking-[0.18em] text-[#6B3A4B] sm:gap-x-12 md:text-sm">
             <a href="/" className="transition hover:text-[#C9A96E]">Home</a>
             <a href="/shop" className="text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="transition hover:text-[#C9A96E]">Our Philosophy</a>
