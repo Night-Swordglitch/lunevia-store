@@ -74,12 +74,8 @@ export default function ShopPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <div className="bg-[#3A1825] px-4 py-3 text-center text-[10px] tracking-[0.2em] text-[#F8E9D8]">
-        Complimentary delivery on orders over $30
-      </div>
-
-      <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur-md">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+      <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
           <a
             href="/"
             className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]"
@@ -87,33 +83,21 @@ export default function ShopPage() {
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
 
-          <div className="flex items-center gap-7 text-[10px] uppercase tracking-[0.15em]">
-            <a href="/" className="transition hover:text-[#C9A96E]">
-              Home
-            </a>
-            <a href="/shop" className="text-[#A88753]">
-              Shop
-            </a>
-            <a href="/#philosophy" className="transition hover:text-[#C9A96E]">
-              Our Philosophy
-            </a>
+          <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.16em] text-[#66584F] md:gap-10">
+            <a href="/" className="transition hover:text-[#A88753]">Home</a>
+            <a href="/shop" className="text-[#A88753]">Shop</a>
+            <a href="/#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
           </div>
+          <span className="hidden text-[9px] uppercase tracking-[0.16em] text-[#A88753] sm:inline">The Collection</span>
         </nav>
       </header>
 
-      <section className="bg-[#3A1825] px-6 py-24 text-center text-[#FAF6F1]">
-        <p className="text-[10px] tracking-[0.35em] text-[#C9A96E]">
-          THE LUNÉVIA COLLECTION
-        </p>
-
-        <h1 className="mt-6 font-serif text-5xl md:text-7xl">
-          Discover the Collection
-        </h1>
-
-        <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-[#E6D7D2]">
-          Thoughtfully selected pieces to bring beauty, comfort and inspiration
-          into everyday living.
-        </p>
+      <section className="border-b border-[#3A1825]/10 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-[9px] tracking-[0.32em] text-[#A88753]">THE LUNÉVIA COLLECTION</p>
+          <h1 className="mt-5 max-w-3xl font-serif text-4xl leading-tight text-[#3A1825] md:text-6xl">Discover the Collection<span className="text-[#C9A96E]">.</span></h1>
+          <p className="mt-5 max-w-lg text-sm leading-7 text-[#75675D]">Thoughtfully selected pieces to bring beauty, comfort and inspiration into everyday living.</p>
+        </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
@@ -190,10 +174,7 @@ export default function ShopPage() {
                       </div>
                     )}
 
-                    <span className="absolute left-4 top-4 bg-[#FAF6F1] px-3 py-2 text-[9px] uppercase tracking-[0.15em] text-[#3A1825]">
-                      LUNÉVIA
-                    </span>
-                  </div>
+</div>
 
                   <div className="pt-4">
                     <h3 className="font-serif text-xl leading-snug text-[#3A1825]">
@@ -223,16 +204,6 @@ export default function ShopPage() {
             })}
           </div>
         )}
-      </section>
-
-      <section className="bg-[#3A1825] px-6 py-20 text-center text-[#FAF6F1]">
-        <p className="text-[10px] tracking-[0.3em] text-[#C9A96E]">
-          THE LUNÉVIA PHILOSOPHY
-        </p>
-
-        <h2 className="mx-auto mt-6 max-w-2xl font-serif text-3xl leading-relaxed md:text-4xl">
-          Elevate the everyday.
-        </h2>
       </section>
 
       <footer className="px-6 py-12">
