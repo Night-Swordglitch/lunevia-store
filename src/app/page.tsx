@@ -151,7 +151,7 @@ export default function Home() {
                   {item.description}
                 </p>
                 <span className="mt-4 inline-block border-b border-[#C9A96E] pb-1 text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-                  Explore the collection
+                  View details
                 </span>
               </a>
             ))}
