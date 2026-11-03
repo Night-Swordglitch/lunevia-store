@@ -11,11 +11,17 @@ type Variant = {
   options?: Record<string, string | number>;
 };
 
+type ProductOption = {
+  name: string;
+  type?: string;
+};
+
 type Product = {
   id: string;
   title: string;
   description: string;
   images: string[];
+  options?: ProductOption[];
   variants: Variant[];
 };
 
@@ -129,20 +135,34 @@ export default function ProductPage() {
   const formatPrice = (price: number) => "$" + (price / 100).toFixed(2);
   const description = cleanDescription(product.description || "");
 
-  const optionNames = Array.from(
-    new Set(
-      availableVariants.flatMap((variant) =>
-        Object.keys(variant.options || {})
-      )
-    )
-  );
+  const optionNames = product.options?.length
+    ? product.options.map((option) => option.name)
+    : Array.from(
+        new Set(
+          availableVariants.flatMap((variant) =>
+            Object.keys(variant.options || {}).filter((key) => !/^\\d+$/.test(key))
+          )
+        )
+      );
+
+  const getOptionValue = (variant: Variant | undefined, name: string) => {
+    if (!variant) return undefined;
+    const directValue = variant.options?.[name];
+    if (directValue !== undefined) return directValue;
+
+    const optionIndex = product.options?.findIndex((option) => option.name === name);
+    if (optionIndex !== undefined && optionIndex >= 0) {
+      return variant.options?.[String(optionIndex)];
+    }
+    return undefined;
+  };
 
   const optionGroups = optionNames.map((name) => ({
     name,
     values: Array.from(
       new Set(
         availableVariants
-          .map((variant) => variant.options?.[name])
+          .map((variant) => getOptionValue(variant, name))
           .filter((value): value is string | number => value !== undefined)
           .map(String)
       )
@@ -157,16 +177,16 @@ export default function ProductPage() {
   );
 
   function chooseOption(optionName: string, value: string) {
-    const currentOptions = activeVariant?.options || {};
     const exactMatch = selectableVariants.find((variant) =>
-      Object.entries({ ...currentOptions, [optionName]: value }).every(
-        ([name, selectedValue]) =>
-          String(variant.options?.[name] ?? "") === String(selectedValue)
+      optionNames.every((name) =>
+        String(
+          name === optionName ? value : getOptionValue(activeVariant || undefined, name) ?? ""
+        ) === String(getOptionValue(variant, name) ?? "")
       )
     );
 
     const matchingOption = selectableVariants.find(
-      (variant) => String(variant.options?.[optionName] ?? "") === value
+      (variant) => String(getOptionValue(variant, optionName) ?? "") === value
     );
 
     const nextVariant = exactMatch || matchingOption;
@@ -247,17 +267,9 @@ export default function ProductPage() {
 
           <div className="my-5 h-px bg-[#3A1825]/12 sm:my-7" />
 
-          <h2 className="text-[9px] uppercase tracking-[0.2em] text-[#3A1825]">
-            About this piece
-          </h2>
-
-          <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[#75675D]">
-            {description || "Discover this piece from LUNÉVIA."}
-          </p>
-
-          <div className="mt-8 space-y-5 border-t border-[#3A1825]/10 pt-6">
+          <div className="space-y-5 border-t border-[#3A1825]/10 pt-6">
             <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-              Personalise your selection
+              Choose your options
             </h2>
 
             {availableVariants.length > 0 && optionGroups.length > 0 ? (
@@ -269,16 +281,16 @@ export default function ProductPage() {
                         {colourGroup.name}
                       </label>
                       <span className="text-xs text-[#75675D]">
-                        {String(activeVariant?.options?.[colourGroup.name] ?? "Select")}
+                        {String(getOptionValue(activeVariant || undefined, colourGroup.name) ?? "Select")}
                       </span>
                     </div>
                     <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
                       {colourGroup.values.map((value) => {
                         const isSelected =
-                          String(activeVariant?.options?.[colourGroup.name] ?? "") === value;
+                          String(getOptionValue(activeVariant || undefined, colourGroup.name) ?? "") === value;
                         const isAvailable = selectableVariants.some(
                           (variant) =>
-                            String(variant.options?.[colourGroup.name] ?? "") === value
+                            String(getOptionValue(variant, colourGroup.name) ?? "") === value
                         );
 
                         return (
@@ -312,7 +324,7 @@ export default function ProductPage() {
                     </label>
                     <select
                       id={`variant-${group.name}`}
-                      value={String(activeVariant?.options?.[group.name] ?? "")}
+                      value={String(getOptionValue(activeVariant || undefined, group.name) ?? "")}
                       onChange={(event) => chooseOption(group.name, event.target.value)}
                       className="w-full appearance-none rounded-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none transition focus:border-[#C9A96E]"
                     >
@@ -322,7 +334,7 @@ export default function ProductPage() {
                       {group.values.map((value) => {
                         const isAvailable = selectableVariants.some(
                           (variant) =>
-                            String(variant.options?.[group.name] ?? "") === value
+                            String(getOptionValue(variant, group.name) ?? "") === value
                         );
                         return (
                           <option key={value} value={value} disabled={!isAvailable}>
@@ -369,11 +381,20 @@ export default function ProductPage() {
             )}
           </div>
 
-          <p className="mt-6 text-[11px] text-[#75675D]">
+          <p className="mt-4 text-[11px] text-[#75675D]">
             {activeVariant?.is_available
-              ? "This option is currently available."
+              ? "Selected option available."
               : "Please choose an available option."}
           </p>
+
+          <div className="mt-8 border-t border-[#3A1825]/10 pt-6">
+            <h2 className="text-[9px] uppercase tracking-[0.2em] text-[#3A1825]">
+              About this piece
+            </h2>
+            <p className="mt-3 max-w-prose whitespace-pre-line text-sm leading-7 text-[#75675D]">
+              {description || "Discover this piece from LUNÉVIA."}
+            </p>
+          </div>
 
           <div className="mt-7 border-t border-[#3A1825]/10 pt-5">
             <p className="text-[9px] leading-6 tracking-[0.16em] text-[#A88753]">
