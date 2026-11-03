@@ -32,7 +32,7 @@ export async function GET() {
 
       if (!response.ok) {
         return NextResponse.json(
-          { error: "Printify product request failed.", details: result },
+          { error: "Printify product request failed." },
           { status: response.status }
         );
       }
