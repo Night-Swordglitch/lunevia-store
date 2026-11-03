@@ -36,7 +36,11 @@ export async function GET() {
       title: product.title,
       description: product.description,
       options: product.options ?? [],
-      images: (product.images ?? []).map((image: any) => image.src),
+      images: (product.images ?? []).map((image: any) => ({
+        src: image.src,
+        variant_ids: image.variant_ids ?? [],
+        is_default: image.is_default ?? false,
+      })),
       variants: (product.variants ?? []).map((variant: any) => ({
         id: variant.id,
         price: variant.price,
