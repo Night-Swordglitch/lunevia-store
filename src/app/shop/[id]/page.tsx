@@ -324,21 +324,10 @@ export default function ProductPage() {
 
                 {dropdownGroups.map((group) => {
                   const isSizeOption = /size/i.test(group.name);
-                  const hasSingleChoice = group.values.length === 1;
+                  const hasSingleSize = isSizeOption && group.values.length === 1;
                   const selectedValue = String(
                     getOptionValue(activeVariant || undefined, group.name) ?? group.values[0] ?? ""
                   );
-
-                  if (hasSingleChoice) {
-                    return (
-                      <div key={group.name} className="flex items-center justify-between gap-4">
-                        <span className="text-xs text-[#3A1825]">{group.name}</span>
-                        <span className="text-sm text-[#75675D]">
-                          {isSizeOption ? "One size" : selectedValue}
-                        </span>
-                      </div>
-                    );
-                  }
 
                   return (
                     <div key={group.name}>
@@ -359,7 +348,7 @@ export default function ProductPage() {
                         </option>
                         {group.values.map((value) => (
                           <option key={value} value={value}>
-                            {value}
+                            {hasSingleSize ? "One size" : value}
                           </option>
                         ))}
                       </select>
