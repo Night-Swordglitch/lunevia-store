@@ -47,22 +47,17 @@ export default function ShopPage() {
   }, []);
 
   const shopCategories = [
+    { slug: "new-arrivals", name: "New Arrivals" },
     { slug: "accessories", name: "Accessories" },
-    { slug: "footwear", name: "Footwear" },
+    { slug: "everyday-essentials", name: "Everyday Essentials" },
+    { slug: "beauty-care", name: "Beauty" },
+    { slug: "men", name: "Men" },
+    { slug: "women", name: "Women" },
     { slug: "fragrance", name: "Fragrance" },
     { slug: "gifts", name: "Gifts" },
-    { slug: "home-decor", name: "Home Decor" },
-    { slug: "men", name: "Men" },
-    { slug: "new-arrivals", name: "New Arrivals" },
     { slug: "room-decor", name: "Room Decor" },
     { slug: "travel", name: "Travel" },
-    { slug: "women", name: "Women" },
-  ];
-
-  const featuredCategories = [
-    { slug: "home-living", name: "Home & Living" },
-    { slug: "everyday-essentials", name: "Everyday Essentials" },
-    { slug: "beauty-care", name: "Beauty & Care" },
+    { slug: "footwear", name: "Footwear" },
   ];
 
   const categoryKeywords: Record<string, string[]> = {
@@ -219,15 +214,6 @@ export default function ShopPage() {
             >
               All
             </a>
-            {featuredCategories.map((item) => (
-              <a
-                key={item.slug}
-                href={`/shop?category=${item.slug}`}
-                className={`border px-4 py-2 text-[9px] uppercase tracking-[0.14em] transition ${category === item.slug ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]" : "border-[#3A1825]/20 text-[#66584F] hover:border-[#C9A96E] hover:text-[#3A1825]"}`}
-              >
-                {item.name}
-              </a>
-            ))}
             {shopCategories.map((item) => (
               <a
                 key={item.slug}
