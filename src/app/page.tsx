@@ -33,13 +33,13 @@ export default function Home() {
           <a href="/" aria-label="LUNÉVIA home" className="font-serif text-[1.45rem] tracking-[0.2em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
-          <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.16em] text-[#66584F] md:gap-10">
+          <div className="flex items-center gap-6 font-serif text-sm font-semibold uppercase tracking-[0.12em] text-[#66584F] md:gap-10 md:text-[15px]">
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
             <a href="#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
             <a href="/cart" className="transition hover:text-[#A88753]">Bag</a>
           </div>
-          <a href="/shop" className="border-b border-[#3A1825] pb-1 text-[10px] uppercase tracking-[0.16em] text-[#3A1825] transition hover:border-[#C9A96E] hover:text-[#A88753]">
+          <a href="/shop" className="border-b border-[#3A1825] pb-1 font-serif text-xs font-semibold uppercase tracking-[0.12em] text-[#3A1825] transition hover:border-[#C9A96E] hover:text-[#A88753] md:text-sm">
             Discover
           </a>
         </nav>
