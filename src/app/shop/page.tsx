@@ -14,6 +14,7 @@ type Product = {
   id: string;
   title: string;
   description: string;
+  created_at?: string | null;
   images: { src: string; variant_ids?: number[]; is_default?: boolean }[];
   variants: Variant[];
 };
@@ -122,8 +123,6 @@ export default function ShopPage() {
   };
 
   function belongsToCategory(product: Product, selectedCategory: string) {
-    if (selectedCategory === "new-arrivals") return true;
-
     const keywords = categoryKeywords[selectedCategory];
     if (!keywords) return false;
 
@@ -131,9 +130,18 @@ export default function ShopPage() {
     return keywords.some((keyword) => title.includes(keyword));
   }
 
-  const visibleProducts = category
-    ? products.filter((product) => belongsToCategory(product, category))
-    : products;
+  const visibleProducts = category === "new-arrivals"
+    ? [...products]
+        .filter((product) => Boolean(product.created_at))
+        .sort(
+          (a, b) =>
+            new Date(b.created_at as string).getTime() -
+            new Date(a.created_at as string).getTime()
+        )
+        .slice(0, 6)
+    : category
+      ? products.filter((product) => belongsToCategory(product, category))
+      : products;
 
   const categoryTitle =
     category === "home-living" ? "Home & Living" :
