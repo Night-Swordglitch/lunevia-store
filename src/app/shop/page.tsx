@@ -1,4 +1,3 @@
-﻿
 "use client";
 
 import { useEffect, useState } from "react";
@@ -17,6 +16,23 @@ type Product = {
   images: string[];
   variants: Variant[];
 };
+
+function cleanDescription(description: string) {
+  return description
+    .replace(/<br\s*\/?\s*>/gi, "\n")
+    .replace(/<\/(p|div|li|h[1-6])\s*>/gi, "\n")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/[ \t]+/g, " ")
+    .replace(/ *\n */g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
 
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -58,19 +74,17 @@ export default function ShopPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      {/* Announcement */}
       <div className="bg-[#3A1825] px-4 py-3 text-center text-[10px] tracking-[0.2em] text-[#F8E9D8]">
-        COMPLIMENTARY DELIVERY ON ORDERS OVER $30
+        Complimentary delivery on orders over $30
       </div>
 
-      {/* Navigation */}
       <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur-md">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <a
             href="/"
             className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]"
           >
-            LUNÃ‰VIA<span className="text-[#C9A96E]">.</span>
+            LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
 
           <div className="flex items-center gap-7 text-[10px] uppercase tracking-[0.15em]">
@@ -80,47 +94,48 @@ export default function ShopPage() {
             <a href="/shop" className="text-[#A88753]">
               Shop
             </a>
+            <a href="/#philosophy" className="transition hover:text-[#C9A96E]">
+              Our Philosophy
+            </a>
           </div>
         </nav>
       </header>
 
-      {/* Shop introduction */}
       <section className="bg-[#3A1825] px-6 py-24 text-center text-[#FAF6F1]">
         <p className="text-[10px] tracking-[0.35em] text-[#C9A96E]">
-          THE LUNÃ‰VIA COLLECTION
+          THE LUNÉVIA COLLECTION
         </p>
 
         <h1 className="mt-6 font-serif text-5xl md:text-7xl">
-          Thoughtfully chosen.
+          Discover the Collection
         </h1>
 
         <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-[#E6D7D2]">
-          Discover pieces designed to bring a little more beauty,
-          comfort and inspiration into everyday living.
+          Thoughtfully selected pieces to bring beauty, comfort and inspiration
+          into everyday living.
         </p>
       </section>
 
-      {/* Products */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-[10px] tracking-[0.3em] text-[#A88753]">
-              EXPLORE LUNÃ‰VIA
+              DISCOVER LUNÉVIA
             </p>
             <h2 className="mt-3 font-serif text-4xl text-[#3A1825]">
-              Our collection
+              Thoughtfully selected
             </h2>
           </div>
 
           <p className="text-xs text-[#75675D]">
-            {loading ? "Loading collection..." : `${products.length} products`}
+            {loading ? "Loading the collection..." : `${products.length} products`}
           </p>
         </div>
 
         {loading && (
           <div className="py-24 text-center">
             <p className="font-serif text-2xl text-[#3A1825]">
-              Preparing your collection...
+              Preparing your selection...
             </p>
             <p className="mt-3 text-xs text-[#75675D]">
               Just a moment.
@@ -131,7 +146,7 @@ export default function ShopPage() {
         {error && (
           <div className="border border-red-200 bg-red-50 p-8 text-center">
             <p className="font-serif text-xl text-red-900">
-              Unable to load the collection
+              We could not load the collection
             </p>
             <p className="mt-3 text-sm text-red-700">{error}</p>
             <button
@@ -145,7 +160,7 @@ export default function ShopPage() {
 
         {!loading && !error && products.length === 0 && (
           <p className="py-20 text-center text-[#75675D]">
-            No products are currently available.
+            There are no products to display right now.
           </p>
         )}
 
@@ -154,12 +169,13 @@ export default function ShopPage() {
             {products.map((product) => {
               const price = getPrice(product);
               const image = product.images?.[0];
+              const description = cleanDescription(product.description || "");
 
               return (
                 <a
-                href={`/shop/${product.id}`}
-                key={product.id}
-                className="group block"
+                  href={`/shop/${product.id}`}
+                  key={product.id}
+                  className="group block"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F0E9E1]">
                     {image ? (
@@ -170,12 +186,12 @@ export default function ShopPage() {
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-sm text-[#A88753]">
-                        LUNÃ‰VIA
+                        LUNÉVIA
                       </div>
                     )}
 
                     <span className="absolute left-4 top-4 bg-[#FAF6F1] px-3 py-2 text-[9px] uppercase tracking-[0.15em] text-[#3A1825]">
-                      LUNÃ‰VIA
+                      LUNÉVIA
                     </span>
                   </div>
 
@@ -184,9 +200,9 @@ export default function ShopPage() {
                       {product.title}
                     </h3>
 
-                    {product.description && (
-                      <p className="mt-2 line-clamp-2 text-xs leading-6 text-[#75675D]">
-                        {product.description}
+                    {description && (
+                      <p className="mt-2 line-clamp-2 whitespace-pre-line text-xs leading-6 text-[#75675D]">
+                        {description}
                       </p>
                     )}
 
@@ -198,7 +214,7 @@ export default function ShopPage() {
                       </span>
 
                       <span className="text-[9px] uppercase tracking-[0.15em] text-[#A88753]">
-                        View collection
+                        View details
                       </span>
                     </div>
                   </div>
@@ -209,10 +225,9 @@ export default function ShopPage() {
         )}
       </section>
 
-      {/* Brand statement */}
       <section className="bg-[#3A1825] px-6 py-20 text-center text-[#FAF6F1]">
         <p className="text-[10px] tracking-[0.3em] text-[#C9A96E]">
-          THE LUNÃ‰VIA PHILOSOPHY
+          THE LUNÉVIA PHILOSOPHY
         </p>
 
         <h2 className="mx-auto mt-6 max-w-2xl font-serif text-3xl leading-relaxed md:text-4xl">
@@ -220,31 +235,28 @@ export default function ShopPage() {
         </h2>
       </section>
 
-      {/* Footer */}
       <footer className="px-6 py-12">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row">
           <div>
             <h2 className="font-serif text-2xl tracking-[0.15em] text-[#3A1825]">
-              LUNÃ‰VIA<span className="text-[#C9A96E]">.</span>
+              LUNÉVIA<span className="text-[#C9A96E]">.</span>
             </h2>
             <p className="mt-2 text-xs text-[#75675D]">
               Elevate the everyday.
             </p>
           </div>
 
-          <a
-            href="/"
-            className="text-[10px] uppercase tracking-[0.15em] text-[#75675D]"
-          >
-            Back to home
-          </a>
+          <div className="flex flex-col gap-3 text-[10px] uppercase tracking-[0.15em] text-[#75675D]">
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/#philosophy">Our Philosophy</a>
+          </div>
         </div>
 
         <div className="mx-auto mt-10 max-w-7xl border-t border-[#3A1825]/15 pt-6 text-center text-[10px] text-[#75675D]">
-          Â© {new Date().getFullYear()} LUNÃ‰VIA. All rights reserved.
+          © {new Date().getFullYear()} LUNÉVIA. All rights reserved.
         </div>
       </footer>
     </main>
   );
 }
-
