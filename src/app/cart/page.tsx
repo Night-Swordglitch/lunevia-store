@@ -22,7 +22,7 @@ export default function CartPage() {
           <a href="/" className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
-          <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.16em] text-[#66584F]">
+          <div className="flex items-center gap-6 font-serif text-sm font-semibold uppercase tracking-[0.12em] text-[#66584F] md:text-[15px]">
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
             <a href="/cart" className="text-[#A88753]">Bag ({cartCount})</a>
