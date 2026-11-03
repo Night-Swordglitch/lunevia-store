@@ -1,8 +1,9 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const token = process.env.PRINTIFY_API_TOKEN;
   const shopId = "29152028";
+  const limit = 50;
 
   if (!token) {
     return NextResponse.json(
@@ -12,26 +13,45 @@ export async function GET() {
   }
 
   try {
-    const response = await fetch(
-      `https://api.printify.com/v1/shops/${shopId}/products.json?limit=50`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        cache: "no-store",
-      }
-    );
+    const products: any[] = [];
+    let page = 1;
+    let lastPage = 1;
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: "Printify product request failed.", details: result },
-        { status: response.status }
+    do {
+      const response = await fetch(
+        `https://api.printify.com/v1/shops/${shopId}/products.json?limit=${limit}&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        }
       );
-    }
 
-    const products = (result.data ?? []).map((product: any) => ({
+      const result = await response.json();
+
+      if (!response.ok) {
+        return NextResponse.json(
+          { error: "Printify product request failed.", details: result },
+          { status: response.status }
+        );
+      }
+
+      const pageProducts = Array.isArray(result.data) ? result.data : [];
+      products.push(...pageProducts);
+
+      const reportedLastPage = Number(result.last_page);
+      lastPage =
+        Number.isFinite(reportedLastPage) && reportedLastPage >= page
+          ? reportedLastPage
+          : pageProducts.length === limit
+            ? page + 1
+            : page;
+
+      page += 1;
+    } while (page <= lastPage);
+
+    const formattedProducts = products.map((product: any) => ({
       id: product.id,
       title: product.title,
       description: product.description,
@@ -51,8 +71,8 @@ export async function GET() {
     }));
 
     return NextResponse.json({
-      total: result.total ?? products.length,
-      products,
+      total: products.length,
+      products: formattedProducts,
     });
   } catch {
     return NextResponse.json(
