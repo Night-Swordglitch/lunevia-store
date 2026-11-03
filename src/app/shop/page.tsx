@@ -178,22 +178,20 @@ export default function ShopPage() {
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
       <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
-          <a
-            href="/"
-            className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]"
-          >
-            LUNÉVIA<span className="text-[#C9A96E]">.</span>
-          </a>
-
-          <div className="flex items-center gap-6 font-serif text-sm font-semibold uppercase tracking-[0.12em] text-[#66584F] md:gap-10 md:text-[15px]">
+        <div className="mx-auto max-w-7xl px-6 py-4 md:px-10">
+          <div className="flex flex-col items-center">
+            <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#3A1825]">
+              LUNÉVIA<span className="text-[#C9A96E]">.</span>
+            </a>
+            <p className="mt-1 text-[10px] tracking-[0.12em] text-[#75675D]">Elevate the everyday.</p>
+          </div>
+          <nav aria-label="Main navigation" className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-serif text-xs font-semibold uppercase tracking-[0.12em] text-[#66584F] sm:gap-x-8 md:text-sm">
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="text-[#A88753]">Shop</a>
-            <a href="/#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
+            <a href="/#philosophy" className="transition hover:text-[#A88753]">Our Philosophy</a>
             <a href="/cart" className="transition hover:text-[#A88753]">Bag ({cartCount})</a>
-          </div>
-          <span className="hidden text-[9px] uppercase tracking-[0.16em] text-[#A88753] sm:inline">The Collection</span>
-        </nav>
+          </nav>
+        </div>
       </header>
 
       <section className="border-b border-[#3A1825]/10 px-6 py-16 md:px-10 md:py-20">
@@ -343,23 +341,6 @@ export default function ShopPage() {
         )}
       </section>
 
-      <footer className="border-t border-[#3A1825]/10 px-6 py-12 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
-          <a href="/" className="font-serif text-3xl tracking-[0.2em] text-[#3A1825]">
-            LUNÉVIA<span className="text-[#C9A96E]">.</span>
-          </a>
-          <p className="mt-3 text-xs tracking-[0.08em] text-[#75675D]">Elevate the everyday.</p>
-          <nav aria-label="Footer navigation" className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-serif text-sm font-semibold uppercase tracking-[0.12em] text-[#66584F]">
-            <a href="/" className="transition hover:text-[#A88753]">Home</a>
-            <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
-            <a href="/#philosophy" className="transition hover:text-[#A88753]">Our Philosophy</a>
-            <a href="/cart" className="transition hover:text-[#A88753]">Bag</a>
-          </nav>
-        </div>
-        <div className="mx-auto mt-10 max-w-7xl border-t border-[#3A1825]/15 pt-5 text-center text-[9px] tracking-[0.08em] text-[#75675D]">
-          © {new Date().getFullYear()} LUNÉVIA. All rights reserved.
-        </div>
-      </footer>
     </main>
   );
 }
