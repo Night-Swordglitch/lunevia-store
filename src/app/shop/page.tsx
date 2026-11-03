@@ -185,11 +185,17 @@ export default function ShopPage() {
             </a>
             <p className="mt-1 text-[10px] tracking-[0.14em] text-[#E8DCD5]">Elevate the everyday.</p>
           </div>
-          <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 border-t border-[#C9A96E]/40 py-4 font-serif text-xs font-bold uppercase tracking-[0.18em] text-[#6B3A4B] sm:gap-x-12 md:text-sm">
-            <a href="/" className="transition hover:text-[#C9A96E]">Home</a>
-            <a href="/shop" className="text-[#C9A96E]">Shop</a>
-            <a href="/#philosophy" className="transition hover:text-[#C9A96E]">Our Philosophy</a>
-            <a href="/cart" className="transition hover:text-[#C9A96E]">Bag ({cartCount})</a>
+          <nav aria-label="Main navigation" className="flex flex-nowrap items-center justify-center gap-x-4 border-t border-[#C9A96E]/40 py-4 font-serif text-[9px] font-bold uppercase tracking-[0.08em] text-[#6B3A4B] sm:gap-x-8 sm:text-xs sm:tracking-[0.12em] md:text-sm md:tracking-[0.18em]">
+            <a href="/" className="whitespace-nowrap transition hover:text-[#C9A96E]">Home</a>
+            <a href="/shop" className="whitespace-nowrap text-[#C9A96E]">Shop</a>
+            <a href="/#philosophy" className="whitespace-nowrap transition hover:text-[#C9A96E]">Our Philosophy</a>
+            <a href="/cart" aria-label={`Shopping bag, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1 transition hover:text-[#C9A96E]">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-[17px] w-[17px] sm:h-[19px] sm:w-[19px]">
+                <path d="M5 8h14l1 13H4L5 8Z" />
+                <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+              </svg>
+              {cartCount > 0 && <span className="text-[9px]">{cartCount}</span>}
+            </a>
           </nav>
         </div>
       </header>
