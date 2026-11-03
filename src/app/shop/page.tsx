@@ -59,9 +59,15 @@ export default function ShopPage() {
     { slug: "women", name: "Women" },
   ];
 
+  const featuredCategories = [
+    { slug: "home-living", name: "Home & Living" },
+    { slug: "everyday-essentials", name: "Everyday Essentials" },
+    { slug: "beauty-care", name: "Beauty & Care" },
+  ];
+
   const categoryKeywords: Record<string, string[]> = {
     "home-living": [
-      "blackberry vanilla candle",
+      "blackberry vanilla",
       "abstract wave desk mat",
       "men's fragrance organizer",
       "mens fragrance organizer",
@@ -85,16 +91,16 @@ export default function ShopPage() {
     ],
     footwear: ["slide sandals"],
     fragrance: [
-      "blackberry vanilla candle",
+      "blackberry vanilla",
       "men's fragrance organizer",
       "mens fragrance organizer",
     ],
     gifts: [
       "two years of awesomeness journal",
-      "blackberry vanilla candle",
+      "blackberry vanilla",
       "heart necklace set",
     ],
-    "home-decor": ["blackberry vanilla candle"],
+    "home-decor": ["blackberry vanilla"],
     men: [
       "wherever you land hoodie",
       "heavy blend crewneck",
@@ -102,7 +108,7 @@ export default function ShopPage() {
     ],
     "new-arrivals": [],
     "room-decor": [
-      "blackberry vanilla candle",
+      "blackberry vanilla",
       "abstract wave desk mat",
       "men's fragrance organizer",
       "mens fragrance organizer",
@@ -213,6 +219,15 @@ export default function ShopPage() {
             >
               All
             </a>
+            {featuredCategories.map((item) => (
+              <a
+                key={item.slug}
+                href={`/shop?category=${item.slug}`}
+                className={`border px-4 py-2 text-[9px] uppercase tracking-[0.14em] transition ${category === item.slug ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]" : "border-[#3A1825]/20 text-[#66584F] hover:border-[#C9A96E] hover:text-[#3A1825]"}`}
+              >
+                {item.name}
+              </a>
+            ))}
             {shopCategories.map((item) => (
               <a
                 key={item.slug}
