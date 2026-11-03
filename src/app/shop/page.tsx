@@ -177,7 +177,7 @@ export default function ShopPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <header className="sticky top-0 z-50 bg-[linear-gradient(180deg,#3A1825_0%,#40212D_10%,#492A36_20%,#573642_30%,#694A56_40%,#80636D_50%,#9B828A_60%,#B9A6AB_70%,#D5C9CB_80%,#EAE3E3_90%,#FAF6F1_100%)] pb-20">
+      <header className="sticky top-0 z-50 bg-[linear-gradient(180deg,#3A1825_0%,#3F202C_8%,#462632_16%,#502F3B_24%,#5C3B47_32%,#6B4C57_40%,#7D606A_48%,#927984_56%,#A99299_64%,#C0B0B4_72%,#D4C9CB_80%,#E5DEDF_88%,#F2EEEE_95%,#FAF6F1_100%)] pb-28">
         <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
           <div className="flex flex-col items-center pb-5">
             <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#FAF6F1]">
