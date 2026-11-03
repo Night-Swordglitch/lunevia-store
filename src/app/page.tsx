@@ -31,6 +31,7 @@ export default function Home() {
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
             <a href="#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
+            <a href="/cart" className="transition hover:text-[#A88753]">Bag</a>
           </div>
           <a href="/shop" className="border-b border-[#3A1825] pb-1 text-[10px] uppercase tracking-[0.16em] text-[#3A1825] transition hover:border-[#C9A96E] hover:text-[#A88753]">
             Discover
