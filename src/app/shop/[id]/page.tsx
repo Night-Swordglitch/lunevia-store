@@ -209,7 +209,7 @@ export default function ProductPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <header className="sticky top-0 z-50 border-b border-[#C9A96E]/25 bg-[#3A1825]">
+      <header className="sticky top-0 z-50 bg-[linear-gradient(to_bottom,#3A1825_0%,#3A1825_62%,#FAF6F1_100%)]">
         <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
           <div className="flex flex-col items-center pb-5">
             <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#FAF6F1]">
