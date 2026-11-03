@@ -88,36 +88,42 @@ export default function Home() {
             <p className="max-w-xs text-sm leading-6 text-[#75675D]">Thoughtfully selected pieces for every part of your day.</p>
           </div>
           <div className="grid gap-8 md:grid-cols-3 md:gap-6">
-            {collections.map((item) => (
-              <a
-                href={item.comingSoon ? undefined : item.href}
-                key={item.number}
-                className={`group block ${item.comingSoon ? "cursor-default" : ""}`}
-                aria-disabled={item.comingSoon || undefined}
-                onClick={item.comingSoon ? (event) => event.preventDefault() : undefined}
-              >
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#E4D9CE]">
-                  <div className={`absolute inset-0 bg-cover bg-center transition duration-700 ${item.comingSoon ? "" : "group-hover:scale-[1.03]"}`} style={{ backgroundImage: `url('${item.image}')` }} />
-                  {item.comingSoon && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#3A1825]/45">
-                      <span className="border border-[#FAF6F1]/80 px-6 py-4 text-xs tracking-[0.28em] text-[#FAF6F1]">
-                        COMING SOON
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="flex items-start justify-between gap-4 pt-5">
-                  <div>
-                    <p className="text-[9px] tracking-[0.2em] text-[#A88753]">{item.number}</p>
-                    <h3 className="mt-2 font-serif text-2xl text-[#3A1825]">{item.name}</h3>
-                    <p className="mt-2 text-xs leading-6 text-[#75675D]">{item.description}</p>
+            {collections.map((item) => {
+              const cardContent = (
+                <>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#E4D9CE]">
+                    <div className={`absolute inset-0 bg-cover bg-center transition duration-700 ${item.comingSoon ? "" : "group-hover:scale-[1.03]"}`} style={{ backgroundImage: `url('${item.image}')` }} />
+                    {item.comingSoon && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-[#3A1825]/45">
+                        <span className="border border-[#FAF6F1]/80 px-6 py-4 text-xs tracking-[0.28em] text-[#FAF6F1]">
+                          COMING SOON
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  {!item.comingSoon && (
-                    <span className="mt-1 text-lg text-[#A88753] transition group-hover:translate-x-1" aria-hidden="true">↗</span>
-                  )}
+                  <div className="flex items-start justify-between gap-4 pt-5">
+                    <div>
+                      <p className="text-[9px] tracking-[0.2em] text-[#A88753]">{item.number}</p>
+                      <h3 className="mt-2 font-serif text-2xl text-[#3A1825]">{item.name}</h3>
+                      <p className="mt-2 text-xs leading-6 text-[#75675D]">{item.description}</p>
+                    </div>
+                    {!item.comingSoon && (
+                      <span className="mt-1 text-lg text-[#A88753] transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+                    )}
+                  </div>
+                </>
+              );
+
+              return item.comingSoon ? (
+                <div key={item.number} className="group block cursor-default" aria-disabled="true">
+                  {cardContent}
                 </div>
-              </a>
-            ))}
+              ) : (
+                <a key={item.number} href={item.href} className="group block">
+                  {cardContent}
+                </a>
+              );
+            })}
           </div>
           <div className="mt-14 text-center">
             <a href="/shop" className="inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.2em] text-[#3A1825] transition hover:border-[#C9A96E] hover:text-[#A88753]">View all pieces</a>
