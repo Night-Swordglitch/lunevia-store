@@ -14,7 +14,7 @@ type Product = {
   id: string;
   title: string;
   description: string;
-  images: string[];
+  images: { src: string; variant_ids?: number[]; is_default?: boolean }[];
   variants: Variant[];
 };
 
@@ -155,7 +155,7 @@ export default function ShopPage() {
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => {
               const price = getPrice(product);
-              const image = product.images?.[0];
+              const image = product.images?.[0]?.src;
               const description = cleanDescription(product.description || "");
 
               return (
