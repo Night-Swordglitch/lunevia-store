@@ -163,7 +163,7 @@ export default function ProductPage() {
     name,
     values: Array.from(
       new Set(
-        availableVariants
+        selectableVariants
           .map((variant) => getOptionValue(variant, name))
           .filter((value): value is string | number => value !== undefined)
           .map(String)
@@ -322,37 +322,50 @@ export default function ProductPage() {
                   </div>
                 )}
 
-                {dropdownGroups.map((group) => (
-                  <div key={group.name}>
-                    <label
-                      htmlFor={`variant-${group.name}`}
-                      className="mb-2 block text-xs text-[#3A1825]"
-                    >
-                      {group.name}
-                    </label>
-                    <select
-                      id={`variant-${group.name}`}
-                      value={String(getOptionValue(activeVariant || undefined, group.name) ?? "")}
-                      onChange={(event) => chooseOption(group.name, event.target.value)}
-                      className="w-full appearance-none rounded-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none transition focus:border-[#C9A96E]"
-                    >
-                      <option value="" disabled>
-                        Select {group.name.toLowerCase()}
-                      </option>
-                      {group.values.map((value) => {
-                        const isAvailable = selectableVariants.some(
-                          (variant) =>
-                            String(getOptionValue(variant, group.name) ?? "") === value
-                        );
-                        return (
-                          <option key={value} value={value} disabled={!isAvailable}>
-                            {value}{!isAvailable ? " — Unavailable" : ""}
+                {dropdownGroups.map((group) => {
+                  const isSizeOption = /size/i.test(group.name);
+                  const hasSingleChoice = group.values.length === 1;
+                  const selectedValue = String(
+                    getOptionValue(activeVariant || undefined, group.name) ?? group.values[0] ?? ""
+                  );
+
+                  if (hasSingleChoice) {
+                    return (
+                      <div key={group.name} className="flex items-center justify-between gap-4">
+                        <span className="text-xs text-[#3A1825]">{group.name}</span>
+                        <span className="text-sm text-[#75675D]">
+                          {isSizeOption ? "One size" : selectedValue}
+                        </span>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={group.name}>
+                      <label
+                        htmlFor={`variant-${group.name}`}
+                        className="mb-2 block text-xs text-[#3A1825]"
+                      >
+                        {group.name}
+                      </label>
+                      <select
+                        id={`variant-${group.name}`}
+                        value={selectedValue}
+                        onChange={(event) => chooseOption(group.name, event.target.value)}
+                        className="w-full appearance-none rounded-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none transition focus:border-[#C9A96E]"
+                      >
+                        <option value="" disabled>
+                          Select {group.name.toLowerCase()}
+                        </option>
+                        {group.values.map((value) => (
+                          <option key={value} value={value}>
+                            {value}
                           </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                ))}
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
               </>
             ) : availableVariants.length > 0 ? (
               <div>
