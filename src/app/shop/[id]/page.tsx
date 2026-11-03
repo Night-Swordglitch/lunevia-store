@@ -134,7 +134,7 @@ export default function ProductPage() {
     (variant) => variant.id === selectedVariant
   );
 
-  const formatPrice = (price: number) => "$" + (price / 100).toFixed(2);
+  const formatPrice = (price: number) => "S$" + (price / 100).toFixed(2);
   const description = cleanDescription(product.description || "");
 
   const optionNames = product.options?.length
@@ -221,7 +221,7 @@ export default function ProductPage() {
             <a href="/" className="whitespace-nowrap transition hover:text-[#C9A96E]">Home</a>
             <a href="/shop" className="whitespace-nowrap transition hover:text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="whitespace-nowrap transition hover:text-[#C9A96E]">Our Philosophy</a>
-            <a href="/cart" aria-label={`Shopping bag, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1.5 transition hover:text-[#C9A96E]">
+            <a href="/cart" aria-label={`Saved selection, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1.5 transition hover:text-[#C9A96E]">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px] sm:h-5 sm:w-5">
                 <path d="M5 8h14l1 13H4L5 8Z" />
                 <path d="M9 8V6a3 3 0 0 1 6 0v2" />
@@ -438,7 +438,7 @@ export default function ProductPage() {
             }}
             className="mt-5 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {addedToCart ? "Added to bag" : "Add to bag"}
+            {addedToCart ? "Saved to selection" : "Save to selection"}
           </button>
 
           <div className="mt-8 border-t border-[#3A1825]/10 pt-6">
