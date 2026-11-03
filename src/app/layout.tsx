@@ -14,9 +14,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LUNÉVIA | Elevate the Everyday",
+  metadataBase: new URL("https://shoplunevia.vercel.app"),
+  title: {
+    default: "LUNÉVIA | Elevate the Everyday",
+    template: "%s | LUNÉVIA",
+  },
   description:
     "Discover thoughtfully selected pieces for beauty, comfort and inspiration in everyday living.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://shoplunevia.vercel.app",
+    siteName: "LUNÉVIA",
+    title: "LUNÉVIA | Elevate the Everyday",
+    description:
+      "Discover thoughtfully selected pieces for beauty, comfort and inspiration in everyday living.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LUNÉVIA | Elevate the Everyday",
+    description:
+      "Discover thoughtfully selected pieces for beauty, comfort and inspiration in everyday living.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
