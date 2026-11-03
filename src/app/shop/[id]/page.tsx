@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,6 +19,23 @@ type Product = {
   variants: Variant[];
 };
 
+function cleanDescription(description: string) {
+  return description
+    .replace(/<br\s*\/?\s*>/gi, "\n")
+    .replace(/<\/(p|div|li|h[1-6])\s*>/gi, "\n")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/[ \t]+/g, " ")
+    .replace(/ *\n */g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 export default function ProductPage() {
   const params = useParams();
   const id = params.id as string;
@@ -37,7 +53,7 @@ export default function ProductPage() {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || "Unable to load product.");
+          throw new Error(data.error || "Unable to load this product.");
         }
 
         const found = (data.products || []).find(
@@ -45,14 +61,13 @@ export default function ProductPage() {
         );
 
         if (!found) {
-          throw new Error("Product not found.");
+          throw new Error("This product could not be found.");
         }
 
         setProduct(found);
 
         const firstAvailable = found.variants.find(
-          (variant: Variant) =>
-            variant.is_enabled && variant.is_available
+          (variant: Variant) => variant.is_enabled && variant.is_available
         );
 
         if (firstAvailable) {
@@ -84,13 +99,16 @@ export default function ProductPage() {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#FAF6F1] px-6 text-center">
         <h1 className="font-serif text-3xl text-[#3A1825]">
-          Something went wrong
+          We could not find this product
         </h1>
         <p className="mt-4 text-sm text-[#75675D]">
-          {error || "Product not found."}
+          {error || "Please return to the collection and choose another item."}
         </p>
-        <a href="/shop" className="mt-8 border border-[#3A1825] px-7 py-3 text-xs uppercase tracking-widest">
-          Return to shop
+        <a
+          href="/shop"
+          className="mt-8 border border-[#3A1825] px-7 py-3 text-xs uppercase tracking-widest"
+        >
+          Back to the Collection
         </a>
       </main>
     );
@@ -105,26 +123,28 @@ export default function ProductPage() {
   );
 
   const formatPrice = (price: number) => `$${(price / 100).toFixed(2)}`;
+  const description = cleanDescription(product.description || "");
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
       <div className="bg-[#3A1825] px-4 py-3 text-center text-[10px] tracking-[0.2em] text-[#F8E9D8]">
-        COMPLIMENTARY DELIVERY ON ORDERS OVER $30
+        Complimentary delivery on orders over $30
       </div>
 
-      <header className="border-b border-[#3A1825]/10 bg-[#FAF6F1]">
+      <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur-md">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <a href="/" className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
-          <a href="/shop" className="text-[10px] uppercase tracking-[0.15em] hover:text-[#A88753]">
-            Back to shop
-          </a>
+          <div className="flex items-center gap-7 text-[10px] uppercase tracking-[0.15em]">
+            <a href="/" className="transition hover:text-[#C9A96E]">Home</a>
+            <a href="/shop" className="transition hover:text-[#C9A96E]">Shop</a>
+            <a href="/#philosophy" className="transition hover:text-[#C9A96E]">Our Philosophy</a>
+          </div>
         </nav>
       </header>
 
       <section className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-2 md:gap-16 md:py-20">
-        {/* Product images */}
         <div>
           <div className="aspect-[4/5] overflow-hidden bg-[#F0E9E1]">
             {product.images?.[selectedImage] ? (
@@ -146,6 +166,8 @@ export default function ProductPage() {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
+                  aria-label={`View product image ${index + 1}`}
+                  aria-pressed={selectedImage === index}
                   className={`aspect-square overflow-hidden border ${
                     selectedImage === index
                       ? "border-[#3A1825]"
@@ -163,7 +185,6 @@ export default function ProductPage() {
           )}
         </div>
 
-        {/* Product information */}
         <div className="flex flex-col justify-center">
           <p className="text-[10px] tracking-[0.3em] text-[#A88753]">
             THE LUNÉVIA COLLECTION
@@ -182,16 +203,16 @@ export default function ProductPage() {
           <div className="my-8 h-px bg-[#3A1825]/15" />
 
           <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-            Description
+            About this piece
           </h2>
 
           <p className="mt-4 whitespace-pre-line text-sm leading-8 text-[#75675D]">
-            {product.description || "Discover this piece from LUNÉVIA."}
+            {description || "Discover this piece from LUNÉVIA."}
           </p>
 
           <div className="mt-9">
             <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-              Available options
+              Choose an option
             </h2>
 
             {availableVariants.length > 0 ? (
@@ -200,6 +221,7 @@ export default function ProductPage() {
                   <button
                     key={variant.id}
                     disabled={!variant.is_available}
+                    aria-pressed={selectedVariant === variant.id}
                     onClick={() => setSelectedVariant(variant.id)}
                     className={`border px-4 py-4 text-left text-xs transition ${
                       selectedVariant === variant.id
@@ -228,7 +250,7 @@ export default function ProductPage() {
           <p className="mt-8 text-xs text-[#75675D]">
             {activeVariant?.is_available
               ? "This option is currently available."
-              : "Please select an available option."}
+              : "Please choose an available option."}
           </p>
 
           <div className="mt-8 border-t border-[#3A1825]/15 pt-6">
@@ -239,11 +261,18 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <footer className="border-t border-[#3A1825]/10 px-6 py-10 text-center">
-        <p className="font-serif text-xl tracking-[0.15em] text-[#3A1825]">
-          LUNÉVIA<span className="text-[#C9A96E]">.</span>
-        </p>
-        <p className="mt-3 text-[10px] text-[#75675D]">
+      <footer className="border-t border-[#3A1825]/10 px-6 py-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 md:flex-row">
+          <p className="font-serif text-xl tracking-[0.15em] text-[#3A1825]">
+            LUNÉVIA<span className="text-[#C9A96E]">.</span>
+          </p>
+          <div className="flex gap-6 text-[10px] uppercase tracking-[0.15em] text-[#75675D]">
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/#philosophy">Our Philosophy</a>
+          </div>
+        </div>
+        <p className="mt-8 text-center text-[10px] text-[#75675D]">
           © {new Date().getFullYear()} LUNÉVIA. All rights reserved.
         </p>
       </footer>
