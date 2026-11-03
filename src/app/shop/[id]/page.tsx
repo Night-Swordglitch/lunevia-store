@@ -443,20 +443,22 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <footer className="border-t border-[#3A1825]/10 px-6 py-9 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 md:flex-row">
-          <p className="font-serif text-xl tracking-[0.15em] text-[#3A1825]">
+      <footer className="border-t border-[#3A1825]/10 px-6 py-12 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
+          <a href="/" className="font-serif text-3xl tracking-[0.2em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
-          </p>
-          <div className="flex gap-6 text-[10px] uppercase tracking-[0.15em] text-[#75675D]">
-            <a href="/">Home</a>
-            <a href="/shop">Shop</a>
-            <a href="/#philosophy">Our Philosophy</a>
-          </div>
+          </a>
+          <p className="mt-3 text-xs tracking-[0.08em] text-[#75675D]">Elevate the everyday.</p>
+          <nav aria-label="Footer navigation" className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-serif text-sm font-semibold uppercase tracking-[0.12em] text-[#66584F]">
+            <a href="/" className="transition hover:text-[#A88753]">Home</a>
+            <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
+            <a href="/#philosophy" className="transition hover:text-[#A88753]">Our Philosophy</a>
+            <a href="/cart" className="transition hover:text-[#A88753]">Bag</a>
+          </nav>
         </div>
-        <p className="mt-7 text-center text-[9px] tracking-[0.08em] text-[#75675D]">
+        <div className="mx-auto mt-10 max-w-7xl border-t border-[#3A1825]/15 pt-5 text-center text-[9px] tracking-[0.08em] text-[#75675D]">
           © {new Date().getFullYear()} LUNÉVIA. All rights reserved.
-        </p>
+        </div>
       </footer>
     </main>
   );
