@@ -1,5 +1,3 @@
-"use client";
-
 const collections = [
   {
     number: "01",
