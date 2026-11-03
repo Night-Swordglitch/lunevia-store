@@ -186,7 +186,7 @@ export default function ShopPage() {
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
 
-          <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.16em] text-[#66584F] md:gap-10">
+          <div className="flex items-center gap-6 font-serif text-sm font-semibold uppercase tracking-[0.12em] text-[#66584F] md:gap-10 md:text-[15px]">
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="text-[#A88753]">Shop</a>
             <a href="/#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
