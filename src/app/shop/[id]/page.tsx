@@ -374,7 +374,10 @@ export default function ProductPage() {
                 <select
                   id="variant-fallback"
                   value={String(selectedVariant ?? "")}
-                  onChange={(event) => setSelectedVariant(Number(event.target.value))}
+                  onChange={(event) => {
+                    setSelectedVariant(Number(event.target.value));
+                    setAddedToCart(false);
+                  }}
                   className="w-full appearance-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none focus:border-[#C9A96E]"
                 >
                   {availableVariants.map((variant) => (
