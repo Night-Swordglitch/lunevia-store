@@ -57,7 +57,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
         }
       }
     } catch {
-      window.localStorage.removeItem(STORAGE_KEY);
+      try {
+        window.localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // Continue without persistent storage when browser storage is unavailable.
+      }
     } finally {
       setHydrated(true);
     }
