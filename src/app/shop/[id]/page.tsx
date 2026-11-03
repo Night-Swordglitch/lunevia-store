@@ -417,7 +417,13 @@ export default function ProductPage() {
                 options: optionNames
                   .map((name) => {
                     const value = getOptionValue(activeVariant, name);
-                    return value === undefined ? "" : name + ": " + String(value);
+                    if (value === undefined) return "";
+                    const group = optionGroups.find((item) => item.name === name);
+                    const displayValue =
+                      /size/i.test(name) && group?.values.length === 1
+                        ? "One size"
+                        : String(value);
+                    return name + ": " + displayValue;
                   })
                   .filter(Boolean),
               });
