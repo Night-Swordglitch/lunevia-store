@@ -41,17 +41,17 @@ export default function CartPage() {
       </header>
 
       <section className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
-        <p className="text-[9px] tracking-[0.32em] text-[#A88753]">YOUR SELECTION</p>
+        <p className="text-[9px] tracking-[0.32em] text-[#A88753]">SAVED SELECTION</p>
         <h1 className="mt-4 font-serif text-4xl text-[#3A1825] md:text-5xl">
-          Shopping bag<span className="text-[#C9A96E]">.</span>
+          Your selection<span className="text-[#C9A96E]">.</span>
         </h1>
         <p className="mt-3 text-xs text-[#75675D]">
-          {cartCount} {cartCount === 1 ? "item" : "items"} in your bag
+          {cartCount} {cartCount === 1 ? "item" : "items"} saved for reference
         </p>
 
         {items.length === 0 ? (
           <div className="mt-12 border-y border-[#3A1825]/10 py-16 text-center">
-            <h2 className="font-serif text-2xl text-[#3A1825]">Your bag is currently empty.</h2>
+            <h2 className="font-serif text-2xl text-[#3A1825]">Your selection is currently empty.</h2>
             <p className="mt-3 text-sm text-[#75675D]">
               Discover something thoughtful for your everyday.
             </p>
@@ -133,24 +133,17 @@ export default function CartPage() {
             </div>
 
             <aside className="h-fit border border-[#3A1825]/10 p-6">
-              <h2 className="font-serif text-2xl text-[#3A1825]">Order summary</h2>
+              <h2 className="font-serif text-2xl text-[#3A1825]">Selection overview</h2>
               <div className="mt-6 flex items-center justify-between border-b border-[#3A1825]/10 pb-4 text-sm">
-                <span className="text-[#75675D]">Subtotal</span>
+                <span className="text-[#75675D]">Displayed product total</span>
                 <span className="text-[#3A1825]">{formatPrice(subtotal)}</span>
               </div>
               <p className="mt-4 text-xs leading-5 text-[#75675D]">
-                Shipping and any applicable taxes are calculated at checkout.
+                This is a saved product selection only, not an order. LUNÉVIA is not currently accepting purchases or payments. Shipping and taxes have not been calculated, and displayed prices are for reference.
               </p>
-              <button
-                type="button"
-                disabled
-                className="mt-7 w-full cursor-not-allowed bg-[#3A1825]/50 px-5 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1]"
-              >
-                Checkout setup next
-              </button>
-              <p className="mt-3 text-center text-[10px] leading-5 text-[#75675D]">
-                Secure Shopify checkout will be connected in the next stage.
-              </p>
+              <div className="mt-7 w-full border border-[#3A1825]/20 px-5 py-4 text-center text-[10px] uppercase tracking-[0.18em] text-[#75675D]">
+                Purchasing temporarily unavailable
+              </div>
               <a href="/shop" className="mt-6 block text-center text-[9px] uppercase tracking-[0.15em] text-[#3A1825] underline underline-offset-4">
                 Continue shopping
               </a>
