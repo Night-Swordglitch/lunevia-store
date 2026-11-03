@@ -4,18 +4,22 @@ const collections = [
     name: "Beauty & Care",
     description: "Thoughtful touches for your daily rituals.",
     image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=900",
+    href: "/shop?category=beauty-care",
+    comingSoon: true,
   },
   {
     number: "02",
     name: "Home & Living",
     description: "Considered details for the spaces you call yours.",
     image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900",
+    href: "/shop?category=home-living",
   },
   {
     number: "03",
     name: "Everyday Essentials",
     description: "Useful pieces for wherever the day takes you.",
     image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=900",
+    href: "/shop?category=everyday-essentials",
   },
 ];
 
@@ -83,9 +87,22 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-3 md:gap-6">
             {collections.map((item) => (
-              <a href="/shop" key={item.number} className="group block">
+              <a
+                href={item.comingSoon ? undefined : item.href}
+                key={item.number}
+                className={`group block ${item.comingSoon ? "cursor-default" : ""}`}
+                aria-disabled={item.comingSoon || undefined}
+                onClick={item.comingSoon ? (event) => event.preventDefault() : undefined}
+              >
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#E4D9CE]">
-                  <div className="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-[1.03]" style={{ backgroundImage: `url('${item.image}')` }} />
+                  <div className={`absolute inset-0 bg-cover bg-center transition duration-700 ${item.comingSoon ? "" : "group-hover:scale-[1.03]"}`} style={{ backgroundImage: `url('${item.image}')` }} />
+                  {item.comingSoon && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#3A1825]/45">
+                      <span className="border border-[#FAF6F1]/80 px-6 py-4 text-xs tracking-[0.28em] text-[#FAF6F1]">
+                        COMING SOON
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-start justify-between gap-4 pt-5">
                   <div>
@@ -93,7 +110,9 @@ export default function Home() {
                     <h3 className="mt-2 font-serif text-2xl text-[#3A1825]">{item.name}</h3>
                     <p className="mt-2 text-xs leading-6 text-[#75675D]">{item.description}</p>
                   </div>
-                  <span className="mt-1 text-lg text-[#A88753] transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+                  {!item.comingSoon && (
+                    <span className="mt-1 text-lg text-[#A88753] transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+                  )}
                 </div>
               </a>
             ))}
