@@ -1,4 +1,3 @@
-
 const collections = [
   {
     number: "01",
@@ -26,38 +25,34 @@ const collections = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      {/* Announcement */}
       <div className="bg-[#3A1825] px-4 py-2 text-center text-[10px] tracking-[0.2em] text-[#F8E9D8]">
-        COMPLIMENTARY DELIVERY ON ORDERS OVER $30
+        Complimentary delivery on orders over $30
       </div>
 
-      {/* Navigation */}
       <header className="sticky top-0 z-50 border-b border-[#3A1825]/10 bg-[#FAF6F1]/95 backdrop-blur-md">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <a
-            href="#home"
+            href="/"
             className="text-2xl font-serif tracking-[0.18em] text-[#3A1825]"
           >
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
 
           <div className="hidden items-center gap-9 text-[11px] uppercase tracking-[0.18em] md:flex">
-            <a href="#home" className="hover:text-[#C9A96E]">Home</a>
-            <a href="#collections" className="hover:text-[#C9A96E]">Collections</a>
-            <a href="#about" className="hover:text-[#C9A96E]">Our Story</a>
-            <a href="#contact" className="hover:text-[#C9A96E]">Contact</a>
+            <a href="/" className="hover:text-[#C9A96E]">Home</a>
+            <a href="/shop" className="hover:text-[#C9A96E]">Shop</a>
+            <a href="#philosophy" className="hover:text-[#C9A96E]">Our Philosophy</a>
           </div>
 
           <a
-            href="#collections"
+            href="/shop"
             className="border border-[#3A1825] px-5 py-2.5 text-[10px] uppercase tracking-[0.15em] transition hover:bg-[#3A1825] hover:text-white"
           >
-            Explore
+            Discover
           </a>
         </nav>
       </header>
 
-      {/* Hero */}
       <section id="home" className="relative overflow-hidden bg-[#3A1825]">
         <div className="mx-auto grid min-h-[600px] max-w-7xl md:grid-cols-2">
           <div className="flex flex-col justify-center px-8 py-24 text-[#FAF6F1] md:px-16 lg:px-24">
@@ -72,13 +67,13 @@ export default function Home() {
             </h1>
 
             <p className="mt-7 max-w-sm text-sm leading-7 text-[#E6D7D2]">
-              Thoughtfully curated essentials for the moments that make
-              everyday living extraordinary.
+              Discover considered pieces that bring beauty, comfort and
+              inspiration to the everyday.
             </p>
 
             <div className="mt-10">
               <a
-                href="#collections"
+                href="/shop"
                 className="inline-block border border-[#C9A96E] bg-[#C9A96E] px-9 py-4 text-[10px] uppercase tracking-[0.2em] text-[#3A1825] transition hover:bg-transparent hover:text-[#C9A96E]"
               >
                 Discover LUNÉVIA
@@ -100,26 +95,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Introduction */}
-      <section id="about" className="px-6 py-24 text-center">
+      <section id="philosophy" className="px-6 py-24 text-center">
         <p className="text-[10px] tracking-[0.3em] text-[#A88753]">
           A LITTLE MORE INTENTION
         </p>
 
         <h2 className="mt-5 font-serif text-3xl leading-relaxed text-[#3A1825] md:text-5xl">
-          More than things.
+          More than products.
           <br />
-          A way of living.
+          A considered way of living.
         </h2>
 
         <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-[#75675D]">
-          At LUNÉVIA, we believe the smallest details can make the biggest
-          difference. Discover thoughtfully selected pieces that bring
-          beauty, function and inspiration into your everyday.
+          At LUNÉVIA, we believe the smallest details can make a meaningful
+          difference. Explore thoughtfully selected pieces that bring beauty,
+          function and inspiration into everyday living.
         </p>
       </section>
 
-      {/* Collections */}
       <section id="collections" className="bg-[#F2EBE3] px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
@@ -128,18 +121,18 @@ export default function Home() {
                 EXPLORE OUR WORLD
               </p>
               <h2 className="mt-4 font-serif text-4xl text-[#3A1825] md:text-5xl">
-                Discover the collections
+                Discover the Collection
               </h2>
             </div>
 
             <p className="max-w-xs text-sm leading-6 text-[#75675D]">
-              Curated categories for every corner of your lifestyle.
+              Thoughtfully selected pieces for every part of your day.
             </p>
           </div>
 
           <div className="grid gap-7 md:grid-cols-3">
             {collections.map((item) => (
-              <a href="#contact" key={item.number} className="group">
+              <a href="/shop" key={item.number} className="group">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#E4D9CE]">
                   <div
                     className="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-105"
@@ -158,7 +151,7 @@ export default function Home() {
                   {item.description}
                 </p>
                 <span className="mt-4 inline-block border-b border-[#C9A96E] pb-1 text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
-                  Explore collection →
+                  Explore the collection
                 </span>
               </a>
             ))}
@@ -166,7 +159,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand statement */}
       <section className="bg-[#3A1825] px-6 py-24 text-center text-[#FAF6F1]">
         <p className="text-[10px] tracking-[0.3em] text-[#C9A96E]">
           THE LUNÉVIA PHILOSOPHY
@@ -179,8 +171,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Footer */}
-      <footer id="contact" className="px-6 py-14">
+      <footer className="px-6 py-14">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-10 md:flex-row">
           <div>
             <h2 className="font-serif text-3xl tracking-[0.15em] text-[#3A1825]">
@@ -192,10 +183,9 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-3 text-[10px] uppercase tracking-[0.15em] text-[#75675D]">
-            <a href="#home">Home</a>
-            <a href="#collections">Collections</a>
-            <a href="#about">Our Story</a>
-            <a href="mailto:hello@lunevia.com">Contact</a>
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/#philosophy">Our Philosophy</a>
           </div>
         </div>
 
