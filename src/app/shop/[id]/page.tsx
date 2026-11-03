@@ -192,9 +192,9 @@ export default function ProductPage() {
         </nav>
       </header>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-2 md:gap-16 md:py-20">
+      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-8 sm:px-8 md:grid-cols-[1.08fr_0.92fr] md:gap-16 md:px-10 md:py-14">
         <div>
-          <div className="aspect-[4/5] overflow-hidden bg-[#F0E9E1]">
+          <div className="aspect-[4/5] max-h-[760px] overflow-hidden bg-[#F0E9E1]">
             {product.images?.[selectedImage] ? (
               <img
                 src={product.images[selectedImage]}
@@ -209,14 +209,14 @@ export default function ProductPage() {
           </div>
 
           {product.images?.length > 1 && (
-            <div className="mt-4 grid grid-cols-4 gap-3">
+            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
               {product.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   aria-label={`View product image ${index + 1}`}
                   aria-pressed={selectedImage === index}
-                  className={`aspect-square overflow-hidden border ${
+                  className={`h-20 w-20 shrink-0 overflow-hidden border ${
                     selectedImage === index
                       ? "border-[#3A1825]"
                       : "border-transparent"
@@ -233,32 +233,32 @@ export default function ProductPage() {
           )}
         </div>
 
-        <div className="flex flex-col justify-center">
-          <p className="text-[10px] tracking-[0.3em] text-[#A88753]">
+        <div className="flex flex-col justify-center py-4 md:py-8">
+          <p className="text-[9px] tracking-[0.28em] text-[#A88753]">
             THE LUNÉVIA COLLECTION
           </p>
 
-          <h1 className="mt-5 font-serif text-3xl leading-relaxed text-[#3A1825] md:text-5xl">
+          <h1 className="mt-5 font-serif text-3xl leading-tight text-[#3A1825] md:text-4xl lg:text-5xl">
             {product.title}
           </h1>
 
           {activeVariant && (
-            <p className="mt-5 text-xl text-[#3A1825]">
+            <p className="mt-6 text-lg tracking-[0.02em] text-[#3A1825]">
               {formatPrice(activeVariant.price)}
             </p>
           )}
 
-          <div className="my-8 h-px bg-[#3A1825]/15" />
+          <div className="my-7 h-px bg-[#3A1825]/12" />
 
-          <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
+          <h2 className="text-[9px] uppercase tracking-[0.2em] text-[#3A1825]">
             About this piece
           </h2>
 
-          <p className="mt-4 whitespace-pre-line text-sm leading-8 text-[#75675D]">
+          <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[#75675D]">
             {description || "Discover this piece from LUNÉVIA."}
           </p>
 
-          <div className="mt-9 space-y-6">
+          <div className="mt-8 space-y-5 border-t border-[#3A1825]/10 pt-6">
             <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
               Personalise your selection
             </h2>
@@ -267,7 +267,7 @@ export default function ProductPage() {
               <>
                 {colourGroup && (
                   <div>
-                    <div className="mb-3 flex items-center justify-between">
+                    <div className="mb-2 flex items-center justify-between">
                       <label className="text-xs text-[#3A1825]">
                         {colourGroup.name}
                       </label>
@@ -275,7 +275,7 @@ export default function ProductPage() {
                         {String(activeVariant?.options?.[colourGroup.name] ?? "Select")}
                       </span>
                     </div>
-                    <div className="flex gap-2 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:thin]">
+                    <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
                       {colourGroup.values.map((value) => {
                         const isSelected =
                           String(activeVariant?.options?.[colourGroup.name] ?? "") === value;
@@ -291,7 +291,7 @@ export default function ProductPage() {
                             disabled={!isAvailable}
                             aria-pressed={isSelected}
                             onClick={() => chooseOption(colourGroup.name, value)}
-                            className={`shrink-0 whitespace-nowrap border px-4 py-2.5 text-xs transition ${
+                            className={`shrink-0 whitespace-nowrap border px-3.5 py-2 text-[11px] transition ${
                               isSelected
                                 ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]"
                                 : "border-[#3A1825]/20 text-[#3A1825] hover:border-[#C9A96E]"
@@ -317,7 +317,7 @@ export default function ProductPage() {
                       id={`variant-${group.name}`}
                       value={String(activeVariant?.options?.[group.name] ?? "")}
                       onChange={(event) => chooseOption(group.name, event.target.value)}
-                      className="w-full appearance-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none transition focus:border-[#C9A96E]"
+                      className="w-full appearance-none rounded-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none transition focus:border-[#C9A96E]"
                     >
                       <option value="" disabled>
                         Select {group.name.toLowerCase()}
@@ -372,21 +372,21 @@ export default function ProductPage() {
             )}
           </div>
 
-          <p className="mt-8 text-xs text-[#75675D]">
+          <p className="mt-6 text-[11px] text-[#75675D]">
             {activeVariant?.is_available
               ? "This option is currently available."
               : "Please choose an available option."}
           </p>
 
-          <div className="mt-8 border-t border-[#3A1825]/15 pt-6">
-            <p className="text-[10px] leading-6 tracking-[0.1em] text-[#75675D]">
+          <div className="mt-7 border-t border-[#3A1825]/10 pt-5">
+            <p className="text-[9px] leading-6 tracking-[0.16em] text-[#A88753]">
               THOUGHTFULLY CHOSEN. BEAUTIFULLY LIVED.
             </p>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#3A1825]/10 px-6 py-10">
+      <footer className="border-t border-[#3A1825]/10 px-6 py-9 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 md:flex-row">
           <p className="font-serif text-xl tracking-[0.15em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
@@ -397,7 +397,7 @@ export default function ProductPage() {
             <a href="/#philosophy">Our Philosophy</a>
           </div>
         </div>
-        <p className="mt-8 text-center text-[10px] text-[#75675D]">
+        <p className="mt-7 text-center text-[9px] tracking-[0.08em] text-[#75675D]">
           © {new Date().getFullYear()} LUNÉVIA. All rights reserved.
         </p>
       </footer>
