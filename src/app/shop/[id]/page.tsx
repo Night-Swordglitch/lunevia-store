@@ -214,24 +214,22 @@ export default function ProductPage() {
           <a href="/" className="font-serif text-2xl tracking-[0.18em] text-[#3A1825]">
             LUNÉVIA<span className="text-[#C9A96E]">.</span>
           </a>
-          <div className="flex items-center gap-6 text-[10px] uppercase tracking-[0.16em] text-[#66584F] md:gap-10">
+          <div className="flex items-center gap-5 text-[10px] uppercase tracking-[0.16em] text-[#66584F] sm:gap-8">
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
-            <a href="/#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
             <a href="/cart" className="transition hover:text-[#A88753]">Bag ({cartCount})</a>
           </div>
-          <span className="hidden text-[9px] uppercase tracking-[0.16em] text-[#A88753] sm:inline">LUNÉVIA</span>
         </nav>
       </header>
 
-      <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-5 sm:gap-10 sm:px-8 sm:py-8 md:grid-cols-[1.08fr_0.92fr] md:gap-16 md:px-10 md:py-14">
+      <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-7 px-4 py-6 sm:gap-10 sm:px-8 sm:py-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-10 md:py-14">
         <div>
-          <div className="mx-auto flex aspect-[5/4] w-full max-w-[560px] items-center justify-center overflow-hidden bg-[#F0E9E1] sm:aspect-square md:aspect-[4/5] md:max-h-[560px]">
+          <div className="mx-auto flex aspect-square w-full max-w-[540px] items-center justify-center overflow-hidden bg-[#F3EDE7]">
             {displayedImage?.src ? (
               <img
                 src={displayedImage.src}
                 alt={product.title}
-                className="h-full w-full object-contain p-2 sm:p-5"
+                className="h-full w-full object-contain p-4 sm:p-7"
               />
             ) : (
               <div className="flex h-full items-center justify-center font-serif text-2xl text-[#A88753]">
@@ -266,23 +264,19 @@ export default function ProductPage() {
         </div>
 
         <div className="mx-auto flex w-full max-w-2xl flex-col justify-center py-2 sm:py-4 md:py-8">
-          <p className="text-[9px] tracking-[0.28em] text-[#A88753]">
-            THE LUNÉVIA COLLECTION
-          </p>
-
-          <h1 className="mt-3 break-words font-serif text-2xl leading-tight text-[#3A1825] sm:mt-5 sm:text-3xl md:text-4xl lg:text-5xl">
+          <h1 className="break-words font-serif text-2xl leading-tight text-[#3A1825] sm:text-3xl md:text-4xl lg:text-[2.75rem]">
             {product.title}
           </h1>
 
           {activeVariant && (
-            <p className="mt-6 text-lg tracking-[0.02em] text-[#3A1825]">
+            <p className="mt-3 text-base tracking-[0.02em] text-[#3A1825]">
               {formatPrice(activeVariant.price)}
             </p>
           )}
 
-          <div className="my-5 h-px bg-[#3A1825]/12 sm:my-7" />
+          <div className="my-6 h-px bg-[#3A1825]/12" />
 
-          <div className="space-y-5 border-t border-[#3A1825]/10 pt-6">
+          <div className="space-y-5">
             <h2 className="text-[10px] uppercase tracking-[0.2em] text-[#3A1825]">
               Choose your options
             </h2>
@@ -400,7 +394,7 @@ export default function ProductPage() {
             )}
           </div>
 
-          <p className="mt-4 text-[11px] text-[#75675D]">
+          <p className="mt-3 text-[11px] text-[#75675D]">
             {activeVariant?.is_available
               ? "Selected option available."
               : "Please choose an available option."}
@@ -432,7 +426,7 @@ export default function ProductPage() {
               });
               setAddedToCart(true);
             }}
-            className="mt-6 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-5 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
           >
             {addedToCart ? "Added to bag" : "Add to bag"}
           </button>
@@ -446,11 +440,6 @@ export default function ProductPage() {
             </p>
           </div>
 
-          <div className="mt-7 border-t border-[#3A1825]/10 pt-5">
-            <p className="text-[9px] leading-6 tracking-[0.16em] text-[#A88753]">
-              THOUGHTFULLY CHOSEN. BEAUTIFULLY LIVED.
-            </p>
-          </div>
         </div>
       </section>
 
