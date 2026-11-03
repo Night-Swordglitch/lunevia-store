@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useCart } from "@/components/CartProvider";
 
 type Variant = {
   id: number;
@@ -44,12 +45,14 @@ function cleanDescription(description: string) {
 export default function ProductPage() {
   const params = useParams();
   const id = params.id as string;
+  const { addItem, cartCount } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     async function loadProduct() {
@@ -192,7 +195,10 @@ export default function ProductPage() {
     );
 
     const nextVariant = exactMatch || matchingOption;
-    if (nextVariant) setSelectedVariant(nextVariant.id);
+    if (nextVariant) {
+      setSelectedVariant(nextVariant.id);
+      setAddedToCart(false);
+    }
   }
 
   const matchingImageIndex = product.images.findIndex((image) =>
@@ -212,6 +218,7 @@ export default function ProductPage() {
             <a href="/" className="transition hover:text-[#A88753]">Home</a>
             <a href="/shop" className="transition hover:text-[#A88753]">Shop</a>
             <a href="/#philosophy" className="hidden transition hover:text-[#A88753] sm:inline">Our Philosophy</a>
+            <a href="/cart" className="transition hover:text-[#A88753]">Bag ({cartCount})</a>
           </div>
           <span className="hidden text-[9px] uppercase tracking-[0.16em] text-[#A88753] sm:inline">LUNÉVIA</span>
         </nav>
@@ -395,6 +402,31 @@ export default function ProductPage() {
               ? "Selected option available."
               : "Please choose an available option."}
           </p>
+
+          <button
+            type="button"
+            disabled={!activeVariant || !activeVariant.is_available}
+            onClick={() => {
+              if (!activeVariant || !activeVariant.is_available) return;
+              addItem({
+                productId: product.id,
+                variantId: activeVariant.id,
+                title: product.title,
+                price: activeVariant.price,
+                image: displayedImage?.src || product.images?.[0]?.src || "",
+                options: optionNames
+                  .map((name) => {
+                    const value = getOptionValue(activeVariant, name);
+                    return value === undefined ? "" : name + ": " + String(value);
+                  })
+                  .filter(Boolean),
+              });
+              setAddedToCart(true);
+            }}
+            className="mt-6 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {addedToCart ? "Added to bag" : "Add to bag"}
+          </button>
 
           <div className="mt-8 border-t border-[#3A1825]/10 pt-6">
             <h2 className="text-[9px] uppercase tracking-[0.2em] text-[#3A1825]">
