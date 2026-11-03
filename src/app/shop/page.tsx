@@ -207,6 +207,10 @@ export default function ShopPage() {
           </nav>
         </div>
       </header>
+      <div className="border-b border-[#3A1825]/10 bg-[#F2EBE3] px-4 py-2 text-center text-[9px] uppercase tracking-[0.12em] text-[#75675D]">
+        Purchasing is temporarily unavailable. Displayed prices are for reference only.
+      </div>
+
 
       <section className="border-b border-[#3A1825]/10 px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-7xl">
