@@ -191,12 +191,12 @@ export default function ProductPage() {
 
       <section className="mx-auto grid max-w-7xl gap-10 px-5 py-8 sm:px-8 md:grid-cols-[1.08fr_0.92fr] md:gap-16 md:px-10 md:py-14">
         <div>
-          <div className="aspect-[4/5] max-h-[760px] overflow-hidden bg-[#F0E9E1]">
+          <div className="flex aspect-square w-full max-h-[560px] items-center justify-center overflow-hidden bg-[#F0E9E1]">
             {product.images?.[selectedImage] ? (
               <img
                 src={product.images[selectedImage]}
                 alt={product.title}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain p-3 sm:p-5"
               />
             ) : (
               <div className="flex h-full items-center justify-center font-serif text-2xl text-[#A88753]">
@@ -222,7 +222,7 @@ export default function ProductPage() {
                   <img
                     src={image}
                     alt={`${product.title} view ${index + 1}`}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain bg-[#F0E9E1] p-1"
                   />
                 </button>
               ))}
