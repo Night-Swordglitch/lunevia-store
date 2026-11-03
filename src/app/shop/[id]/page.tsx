@@ -189,14 +189,14 @@ export default function ProductPage() {
         </nav>
       </header>
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-8 sm:px-8 md:grid-cols-[1.08fr_0.92fr] md:gap-16 md:px-10 md:py-14">
+      <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-5 sm:gap-10 sm:px-8 sm:py-8 md:grid-cols-[1.08fr_0.92fr] md:gap-16 md:px-10 md:py-14">
         <div>
-          <div className="flex aspect-square w-full max-h-[560px] items-center justify-center overflow-hidden bg-[#F0E9E1]">
+          <div className="mx-auto flex aspect-[5/4] w-full max-w-[560px] items-center justify-center overflow-hidden bg-[#F0E9E1] sm:aspect-square md:aspect-[4/5] md:max-h-[560px]">
             {product.images?.[selectedImage] ? (
               <img
                 src={product.images[selectedImage]}
                 alt={product.title}
-                className="h-full w-full object-contain p-3 sm:p-5"
+                className="h-full w-full object-contain p-2 sm:p-5"
               />
             ) : (
               <div className="flex h-full items-center justify-center font-serif text-2xl text-[#A88753]">
@@ -206,7 +206,7 @@ export default function ProductPage() {
           </div>
 
           {product.images?.length > 1 && (
-            <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
+            <div className="mx-auto mt-3 flex w-full max-w-[560px] gap-2 overflow-x-auto pb-2 sm:gap-3">
               {product.images.map((image, index) => (
                 <button
                   key={index}
@@ -230,12 +230,12 @@ export default function ProductPage() {
           )}
         </div>
 
-        <div className="flex flex-col justify-center py-4 md:py-8">
+        <div className="mx-auto flex w-full max-w-2xl flex-col justify-center py-2 sm:py-4 md:py-8">
           <p className="text-[9px] tracking-[0.28em] text-[#A88753]">
             THE LUNÉVIA COLLECTION
           </p>
 
-          <h1 className="mt-5 font-serif text-3xl leading-tight text-[#3A1825] md:text-4xl lg:text-5xl">
+          <h1 className="mt-3 break-words font-serif text-2xl leading-tight text-[#3A1825] sm:mt-5 sm:text-3xl md:text-4xl lg:text-5xl">
             {product.title}
           </h1>
 
@@ -245,7 +245,7 @@ export default function ProductPage() {
             </p>
           )}
 
-          <div className="my-7 h-px bg-[#3A1825]/12" />
+          <div className="my-5 h-px bg-[#3A1825]/12 sm:my-7" />
 
           <h2 className="text-[9px] uppercase tracking-[0.2em] text-[#3A1825]">
             About this piece
