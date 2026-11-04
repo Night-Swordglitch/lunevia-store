@@ -11,6 +11,7 @@ export default function SiteFooter() {
           <p className="mt-3 max-w-xs text-xs leading-6 text-[#D8C9C0]">
             Thoughtfully chosen for everyday living.
           </p>
+          <CurrencySelector />
         </div>
         <div>
           <h2 className="text-[9px] uppercase tracking-[0.24em] text-[#C9A96E]">Explore</h2>
