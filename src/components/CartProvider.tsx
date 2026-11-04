@@ -49,9 +49,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 item &&
                 typeof item.productId === "string" &&
                 typeof item.variantId === "number" &&
+                Number.isFinite(item.variantId) &&
                 typeof item.title === "string" &&
                 typeof item.price === "number" &&
-                typeof item.quantity === "number"
+                Number.isFinite(item.price) &&
+                item.price >= 0 &&
+                typeof item.image === "string" &&
+                Array.isArray(item.options) &&
+                item.options.every((option: unknown) => typeof option === "string") &&
+                typeof item.quantity === "number" &&
+                Number.isInteger(item.quantity) &&
+                item.quantity > 0
             )
           );
         }
