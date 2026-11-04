@@ -78,6 +78,10 @@ export default function ShopPage() {
   };
 
   function belongsToCategory(product: Product, selectedCategory: string) {
+    if (selectedCategory === "home-living" && /desk\s*mat/i.test(product.title)) {
+      return false;
+    }
+
     return productCategories[product.id]?.includes(selectedCategory) ?? false;
   }
 
