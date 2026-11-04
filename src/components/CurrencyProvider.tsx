@@ -5,11 +5,18 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 export type StoreCurrency = "USD" | "SGD" | "GBP" | "EUR" | "AUD" | "CAD" | "JPY" | "MYR";
 
 const currencies: StoreCurrency[] = ["USD", "SGD", "GBP", "EUR", "AUD", "CAD", "JPY", "MYR"];
+const quoteCurrencies = currencies.filter((code) => code !== "USD").join(",");
 const CurrencyContext = createContext<{
   currency: StoreCurrency;
   setCurrency: (currency: StoreCurrency) => void;
   formatPrice: (usdAmount: number) => string;
 } | null>(null);
+
+type FrankfurterRate = {
+  base: string;
+  quote: string;
+  rate: number;
+};
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
   const [currency, setCurrencyState] = useState<StoreCurrency>("USD");
@@ -24,17 +31,27 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
     }
 
     let cancelled = false;
-    fetch("https://api.frankfurter.app/latest?from=USD&to=SGD,GBP,EUR,AUD,CAD,JPY,MYR")
+    fetch(`https://api.frankfurter.dev/v2/rates?base=USD&quotes=${quoteCurrencies}`)
       .then((response) => {
         if (!response.ok) throw new Error("Exchange rates unavailable");
-        return response.json();
+        return response.json() as Promise<FrankfurterRate[]>;
       })
-      .then((data: { rates?: Record<string, number> }) => {
-        if (cancelled || !data.rates) return;
+      .then((data) => {
+        if (cancelled || !Array.isArray(data)) return;
         const next: Partial<Record<StoreCurrency, number>> = { USD: 1 };
-        for (const code of currencies) {
-          if (code !== "USD" && typeof data.rates[code] === "number") next[code] = data.rates[code];
+        for (const row of data) {
+          if (
+            row.base === "USD" &&
+            currencies.includes(row.quote as StoreCurrency) &&
+            Number.isFinite(row.rate) &&
+            row.rate > 0
+          ) {
+            next[row.quote as StoreCurrency] = row.rate;
+          }
         }
+
+        const missingRates = currencies.filter((code) => code !== "USD" && next[code] === undefined);
+        if (missingRates.length > 0) throw new Error("One or more exchange rates are unavailable");
         setRates(next);
       })
       .catch(() => {
@@ -56,15 +73,13 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const formatPrice = useCallback((usdAmount: number) => {
-    const rate = rates[currency] ?? 1;
-    const displayAmount = usdAmount * rate;
+    const rate = rates[currency];
+    if (rate === undefined) return "Loading rate…";
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency,
       currencyDisplay: "narrowSymbol",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(displayAmount);
+    }).format(usdAmount * rate);
   }, [currency, rates]);
 
   const value = useMemo(() => ({ currency, setCurrency, formatPrice }), [currency, setCurrency, formatPrice]);
