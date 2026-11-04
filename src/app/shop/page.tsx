@@ -62,73 +62,23 @@ export default function ShopPage() {
     { slug: "footwear", name: "Footwear" },
   ];
 
-  const categoryKeywords: Record<string, string[]> = {
-    "home-living": [
-      "blackberry vanilla",
-      "abstract wave desk mat",
-      "men's fragrance organizer",
-      "mens fragrance organizer",
-    ],
-    "everyday-essentials": [
-      "wherever you land hoodie",
-      "minimal fanny pack",
-      "two years of awesomeness journal",
-      "travel accessory pouch",
-      "heart necklace set",
-      "slide sandals",
-      "heavy blend crewneck",
-      "memory foam travel neck pillow",
-    ],
-    accessories: [
-      "two years of awesomeness journal",
-      "minimal fanny pack",
-      "travel accessory pouch",
-      "heart necklace set",
-      "abstract wave desk mat",
-    ],
-    footwear: ["slide sandals"],
-    fragrance: [
-      "blackberry vanilla",
-      "men's fragrance organizer",
-      "mens fragrance organizer",
-    ],
-    gifts: [
-      "two years of awesomeness journal",
-      "blackberry vanilla",
-      "heart necklace set",
-    ],
-    "home-decor": ["blackberry vanilla"],
-    men: [
-      "wherever you land hoodie",
-      "heavy blend crewneck",
-      "minimal fanny pack",
-    ],
-    "new-arrivals": [],
-    "room-decor": [
-      "blackberry vanilla",
-      "abstract wave desk mat",
-      "men's fragrance organizer",
-      "mens fragrance organizer",
-    ],
-    travel: [
-      "wherever you land hoodie",
-      "minimal fanny pack",
-      "travel accessory pouch",
-      "memory foam travel neck pillow",
-    ],
-    women: [
-      "wherever you land hoodie",
-      "slide sandals",
-      "heart necklace set",
-    ],
+  // Explicit Printify product ID assignments keep collections stable when titles change.
+  // Products may belong to more than one relevant collection.
+  const productCategories: Record<string, string[]> = {
+    "6ac27ab0d796ffb48e0f2ad3": ["everyday-essentials", "men", "women", "travel"],
+    "6ac25346d01a18442904d9dd": ["everyday-essentials", "accessories", "men", "travel"],
+    "6ac0b394d8f8171df3095d77": ["everyday-essentials", "accessories", "gifts"],
+    "6ac0b132705d92cac403452a": ["everyday-essentials", "accessories", "travel"],
+    "6abf1a69add24cb68103efd0": ["everyday-essentials", "accessories", "gifts", "women"],
+    "6abe1f77ab5f91622f04ee9a": ["home-living", "accessories", "room-decor"],
+    "6abe1a041407957666064208": ["everyday-essentials", "women", "footwear"],
+    "6abe08ed139455c65504a655": ["home-living", "fragrance", "gifts", "room-decor"],
+    "6abe058e4da6532539083189": ["home-living", "accessories", "room-decor"],
+    "6abdd441f79d4fc7940f66d1": ["everyday-essentials", "men"],
   };
 
   function belongsToCategory(product: Product, selectedCategory: string) {
-    const keywords = categoryKeywords[selectedCategory];
-    if (!keywords) return false;
-
-    const title = product.title.toLowerCase();
-    return keywords.some((keyword) => title.includes(keyword));
+    return productCategories[product.id]?.includes(selectedCategory) ?? false;
   }
 
   const visibleProducts = category === "new-arrivals"
