@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useCart } from "@/components/CartProvider";
+import { useCurrency } from "@/components/CurrencyProvider";
 
 type Variant = {
   id: number;
@@ -46,6 +47,7 @@ export default function ProductPage() {
   const params = useParams();
   const id = params.id as string;
   const { addItem, cartCount } = useCart();
+  const { formatPrice } = useCurrency();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -140,7 +142,7 @@ export default function ProductPage() {
     (variant) => variant.id === selectedVariant
   );
 
-  const formatPrice = (price: number) => "US$" + (price / 100).toFixed(2);
+  
   const description = cleanDescription(product.description || "");
 
   const optionNames = product.options?.length
@@ -358,7 +360,7 @@ export default function ProductPage() {
 
           {activeVariant && (
             <p className="mt-3 text-base tracking-[0.02em] text-[#3A1825]">
-              {formatPrice(activeVariant.price)}
+              {formatPrice(activeVariant.price / 100)}
             </p>
           )}
 
@@ -469,7 +471,7 @@ export default function ProductPage() {
                       disabled={!variant.is_available}
                     >
                       Option {availableVariants.findIndex((item) => item.id === variant.id) + 1}
-                      {" — "}{formatPrice(variant.price)}
+                      {" — "}{formatPrice(variant.price / 100)}
                       {!variant.is_available ? " — Unavailable" : ""}
                     </option>
                   ))}
