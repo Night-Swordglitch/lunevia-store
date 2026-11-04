@@ -80,6 +80,10 @@ export default function ProductPage() {
 
         if (firstAvailable) {
           setSelectedVariant(firstAvailable.id);
+          const firstVariantImage = found.images.findIndex(
+            (image: ProductImage) => image.variant_ids?.includes(firstAvailable.id)
+          );
+          if (firstVariantImage >= 0) setSelectedImage(firstVariantImage);
         }
       } catch (err) {
         setError(
@@ -197,14 +201,15 @@ export default function ProductPage() {
     const nextVariant = exactMatch || matchingOption;
     if (nextVariant) {
       setSelectedVariant(nextVariant.id);
+      const variantImage = product.images.findIndex((image) =>
+        image.variant_ids?.includes(nextVariant.id)
+      );
+      if (variantImage >= 0) setSelectedImage(variantImage);
       setAddedToCart(false);
     }
   }
 
-  const matchingImageIndex = product.images.findIndex((image) =>
-    image.variant_ids?.includes(selectedVariant ?? -1)
-  );
-  const displayedImageIndex = matchingImageIndex >= 0 ? matchingImageIndex : selectedImage;
+  const displayedImageIndex = selectedImage;
   const displayedImage = product.images[displayedImageIndex];
 
   return (
@@ -221,7 +226,7 @@ export default function ProductPage() {
             <a href="/" className="whitespace-nowrap transition hover:text-[#C9A96E]">Home</a>
             <a href="/shop" aria-current="page" className="whitespace-nowrap text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="whitespace-nowrap transition hover:text-[#C9A96E]">Our Philosophy</a>
-            <a href="/cart" aria-label={`Saved selection, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1.5 transition hover:text-[#C9A96E]">
+            <a href="/cart" aria-label={`Shopping bag, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1.5 transition hover:text-[#C9A96E]">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px] sm:h-5 sm:w-5">
                 <path d="M5 8h14l1 13H4L5 8Z" />
                 <path d="M9 8V6a3 3 0 0 1 6 0v2" />
@@ -257,7 +262,18 @@ export default function ProductPage() {
               {product.images.map((image, index) => (
                 <button
                   key={index}
-                  onClick={() => setSelectedImage(index)}
+                  onClick={() => {
+                    setSelectedImage(index);
+                    const imageVariant = image.variant_ids
+                      ?.map((variantId) =>
+                        selectableVariants.find((variant) => variant.id === variantId)
+                      )
+                      .find((variant) => variant !== undefined);
+                    if (imageVariant) {
+                      setSelectedVariant(imageVariant.id);
+                      setAddedToCart(false);
+                    }
+                  }}
                   aria-label={`View product image ${index + 1}`}
                   aria-pressed={selectedImage === index}
                   className={`h-16 w-16 shrink-0 overflow-hidden border sm:h-20 sm:w-20 ${
@@ -442,7 +458,7 @@ export default function ProductPage() {
             }}
             className="mt-5 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {addedToCart ? "Saved to selection" : "Save to selection"}
+            {addedToCart ? "Added to bag" : "Add to bag"}
           </button>
 
           <div className="mt-8 border-t border-[#3A1825]/10 pt-6">
