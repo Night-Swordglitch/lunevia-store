@@ -227,6 +227,7 @@ export default function ShopPage() {
           <div className="mt-4 flex flex-wrap gap-2">
             <a
               href="/shop"
+              aria-current={!category ? "page" : undefined}
               className={`border px-4 py-2 text-[9px] uppercase tracking-[0.14em] transition ${!category ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]" : "border-[#3A1825]/20 text-[#66584F] hover:border-[#C9A96E] hover:text-[#3A1825]"}`}
             >
               All
@@ -235,6 +236,7 @@ export default function ShopPage() {
               <a
                 key={item.slug}
                 href={`/shop?category=${item.slug}`}
+                aria-current={category === item.slug ? "page" : undefined}
                 className={`border px-4 py-2 text-[9px] uppercase tracking-[0.14em] transition ${category === item.slug ? "border-[#3A1825] bg-[#3A1825] text-[#FAF6F1]" : "border-[#3A1825]/20 text-[#66584F] hover:border-[#C9A96E] hover:text-[#3A1825]"}`}
               >
                 {item.name}
