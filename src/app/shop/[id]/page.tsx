@@ -203,7 +203,7 @@ export default function ProductPage() {
       setSelectedVariant(nextVariant.id);
       const variantImage = product?.images.findIndex((image) =>
         image.variant_ids?.includes(nextVariant.id)
-      );
+      ) ?? -1;
       if (variantImage >= 0) setSelectedImage(variantImage);
       setAddedToCart(false);
     }
