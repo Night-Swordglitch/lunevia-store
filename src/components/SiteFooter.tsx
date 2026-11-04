@@ -1,3 +1,5 @@
+import CurrencySelector from "@/components/CurrencySelector";
+
 export default function SiteFooter() {
   return (
     <footer className="bg-[#765B60] px-6 py-12 text-[#FAF6F1] md:px-10">
