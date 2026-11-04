@@ -53,6 +53,8 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [addedToCart, setAddedToCart] = useState(false);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
+  const [availabilityMessage, setAvailabilityMessage] = useState("");
 
   useEffect(() => {
     async function loadProduct() {
@@ -211,6 +213,62 @@ export default function ProductPage() {
 
   const displayedImageIndex = selectedImage;
   const displayedImage = product.images[displayedImageIndex];
+
+  async function addSelectedToBag() {
+    if (!activeVariant || !activeVariant.is_available || checkingAvailability) return;
+
+    setCheckingAvailability(true);
+    setAvailabilityMessage("");
+    setAddedToCart(false);
+
+    try {
+      const response = await fetch("/api/printify/products", { cache: "no-store" });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Availability could not be verified.");
+      }
+
+      const latestProduct = (data.products || []).find(
+        (item: Product) => item.id === product.id
+      );
+      const latestVariant = latestProduct?.variants.find(
+        (variant: Variant) => variant.id === activeVariant.id
+      );
+
+      if (!latestProduct || !latestVariant || !latestVariant.is_enabled || !latestVariant.is_available) {
+        if (latestProduct) setProduct(latestProduct);
+        setAvailabilityMessage("Item unavailable — no stock.");
+        return;
+      }
+
+      setProduct(latestProduct);
+      addItem({
+        productId: latestProduct.id,
+        variantId: latestVariant.id,
+        title: latestProduct.title,
+        price: latestVariant.price,
+        image: displayedImage?.src || latestProduct.images?.[0]?.src || "",
+        options: optionNames
+          .map((name) => {
+            const value = getOptionValue(activeVariant, name);
+            if (value === undefined) return "";
+            const group = optionGroups.find((item) => item.name === name);
+            const displayValue =
+              /size/i.test(name) && group?.values.length === 1
+                ? "One size"
+                : String(value);
+            return name + ": " + displayValue;
+          })
+          .filter(Boolean),
+      });
+      setAddedToCart(true);
+    } catch {
+      setAvailabilityMessage("Availability could not be verified. Please try again.");
+    } finally {
+      setCheckingAvailability(false);
+    }
+  }
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
@@ -424,41 +482,35 @@ export default function ProductPage() {
             )}
           </div>
 
-          <p className="mt-3 text-[11px] text-[#75675D]">
-            {activeVariant?.is_available
-              ? "Selected option available."
-              : "Please choose an available option."}
+          <p className="mt-3 text-[11px] text-[#75675D]" aria-live="polite">
+            Availability:{" "}
+            {activeVariant
+              ? activeVariant.is_available
+                ? "In stock"
+                : "Out of stock"
+              : selectableVariants.length > 0
+                ? "Choose an option to check availability"
+                : "Out of stock"}
           </p>
+          {availabilityMessage && (
+            <p className="mt-2 text-[11px] text-[#8A3D3D]" role="status">
+              {availabilityMessage}
+            </p>
+          )}
 
           <button
             type="button"
-            disabled={!activeVariant || !activeVariant.is_available}
-            onClick={() => {
-              if (!activeVariant || !activeVariant.is_available) return;
-              addItem({
-                productId: product.id,
-                variantId: activeVariant.id,
-                title: product.title,
-                price: activeVariant.price,
-                image: displayedImage?.src || product.images?.[0]?.src || "",
-                options: optionNames
-                  .map((name) => {
-                    const value = getOptionValue(activeVariant, name);
-                    if (value === undefined) return "";
-                    const group = optionGroups.find((item) => item.name === name);
-                    const displayValue =
-                      /size/i.test(name) && group?.values.length === 1
-                        ? "One size"
-                        : String(value);
-                    return name + ": " + displayValue;
-                  })
-                  .filter(Boolean),
-              });
-              setAddedToCart(true);
-            }}
+            disabled={!activeVariant || !activeVariant.is_available || checkingAvailability}
+            onClick={addSelectedToBag}
             className="mt-5 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {addedToCart ? "Added to bag" : "Add to bag"}
+            {checkingAvailability
+              ? "Checking availability..."
+              : activeVariant && !activeVariant.is_available
+                ? "Item unavailable — no stock"
+                : addedToCart
+                  ? "Added to bag"
+                  : "Add to bag"}
           </button>
 
           <div className="mt-8 border-t border-[#3A1825]/10 pt-6">
