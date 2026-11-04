@@ -43,7 +43,7 @@ export default function PrivacyPolicyPage() {
           </section>
           <section>
             <h2 className="font-serif text-2xl text-[#3A1825]">4. Sharing and third parties</h2>
-            <p className="mt-3">We do not sell your personal information. When you choose to email us, your message is handled by the email service you use and the services involved in delivering it. The storefront also retrieves product catalogue information from its product provider; this catalogue request does not submit your shopping bag as an order.</p>
+            <p className="mt-3">We do not sell your personal information. When you choose to email us, your message is handled by the email service you use and the services involved in delivering it. The storefront retrieves product catalogue information from Printify through our hosting service and requests daily reference exchange rates from Frankfurter in your browser to display your selected currency. These requests do not include your saved shopping bag or submit an order. Product and editorial images are hosted by third-party image providers, which your browser contacts to load those images.</p>
           </section>
           <section>
             <h2 className="font-serif text-2xl text-[#3A1825]">5. Your choices</h2>
