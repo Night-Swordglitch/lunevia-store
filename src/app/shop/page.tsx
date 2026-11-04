@@ -98,6 +98,8 @@ export default function ShopPage() {
       ? products.filter((product) => belongsToCategory(product, category))
       : products;
 
+  const comingSoonCategory = category === "home-living" || category === "beauty-care";
+
   const categoryTitle =
     category === "home-living" ? "Home & Living" :
     category === "everyday-essentials" ? "Everyday Essentials" :
@@ -212,11 +214,11 @@ export default function ShopPage() {
           </div>
 
           <p className="text-xs text-[#75675D]">
-            {loading ? "Loading the collection..." : `${visibleProducts.length} products`}
+            {comingSoonCategory ? "Coming soon" : loading ? "Loading the collection..." : `${visibleProducts.length} products`}
           </p>
         </div>
 
-        {loading && (
+        {loading && !comingSoonCategory && (
           <div className="py-24 text-center">
             <p className="font-serif text-2xl text-[#3A1825]">
               Preparing your selection...
@@ -227,7 +229,7 @@ export default function ShopPage() {
           </div>
         )}
 
-        {error && (
+        {error && !comingSoonCategory && (
           <div className="border border-red-200 bg-red-50 p-8 text-center">
             <p className="font-serif text-xl text-red-900">
               We could not load the collection
@@ -242,13 +244,13 @@ export default function ShopPage() {
           </div>
         )}
 
-        {!loading && !error && visibleProducts.length === 0 && (
+        {comingSoonCategory || (!loading && !error && visibleProducts.length === 0) ? (
           <div className="py-20 text-center">
             <p className="font-serif text-2xl text-[#3A1825]">
-              {category === "beauty-care" ? "Coming soon." : "No products in this collection yet."}
+              {comingSoonCategory ? "Coming soon." : "No products in this collection yet."}
             </p>
             <p className="mt-3 text-sm text-[#75675D]">
-              {category === "beauty-care"
+              {comingSoonCategory
                 ? "We're thoughtfully curating this collection. Please check back soon."
                 : "Explore the full LUNÉVIA collection to discover all available pieces."}
             </p>
@@ -258,7 +260,7 @@ export default function ShopPage() {
           </div>
         )}
 
-        {!loading && !error && visibleProducts.length > 0 && (
+        {!comingSoonCategory && !loading && !error && visibleProducts.length > 0 && (
           <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-x-5 gap-y-10 sm:grid-cols-[repeat(2,minmax(0,1fr))] sm:gap-x-6 lg:grid-cols-[repeat(3,minmax(0,1fr))]">
             {visibleProducts.map((product) => {
               const price = getPrice(product);
