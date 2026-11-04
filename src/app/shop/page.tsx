@@ -213,11 +213,9 @@ export default function ShopPage() {
             </h2>
           </div>
 
-          {category !== "home-living" && (
-            <p className="text-xs text-[#75675D]">
-              {loading ? "Loading the collection..." : `${visibleProducts.length} products`}
-            </p>
-          )}
+          <p className="text-xs text-[#75675D]">
+            {loading ? "Loading the collection..." : `${visibleProducts.length} products`}
+          </p>
         </div>
 
         {category !== "home-living" && loading && (
@@ -256,11 +254,9 @@ export default function ShopPage() {
                 ? "We're thoughtfully curating this collection. Please check back soon."
                 : "Explore the full LUNÉVIA collection to discover all available pieces."}
             </p>
-            {category !== "home-living" && (
-              <a href="/shop" className="mt-6 inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.18em] text-[#3A1825]">
-                View all pieces
-              </a>
-            )}
+            <a href="/shop" className="mt-6 inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.18em] text-[#3A1825]">
+              View all pieces
+            </a>
           </div>
         )}
 
