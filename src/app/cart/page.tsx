@@ -3,11 +3,8 @@
 import { useCart } from "@/components/CartProvider";
 import { useCurrency } from "@/components/CurrencyProvider";
 
-function formatPrice(price: number) {
-  return "US$" + (price / 100).toFixed(2);
-}
-
-export default function CartPage() {\n  const { formatPrice } = useCurrency();
+export default function CartPage() {
+  const { formatPrice } = useCurrency();
   const {
     items,
     cartCount,
