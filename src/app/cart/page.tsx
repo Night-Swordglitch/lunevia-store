@@ -40,7 +40,7 @@ export default function CartPage() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
+      <section className="mx-auto w-full min-w-0 max-w-5xl px-4 py-14 sm:px-6 md:px-10 md:py-20">
         <p className="text-[9px] tracking-[0.32em] text-[#A88753]">SAVED SELECTION</p>
         <h1 className="mt-4 font-serif text-4xl text-[#3A1825] md:text-5xl">
           Your selection<span className="text-[#C9A96E]">.</span>
@@ -68,11 +68,11 @@ export default function CartPage() {
               {items.map((item) => (
                 <article
                   key={item.productId + ":" + item.variantId}
-                  className="flex gap-4 py-6 sm:gap-6"
+                  className="flex min-w-0 gap-3 py-6 sm:gap-6"
                 >
                   <a
                     href={"/shop/" + item.productId}
-                    className="h-28 w-24 shrink-0 overflow-hidden bg-[#F0E9E1] sm:h-36 sm:w-32"
+                    className="h-24 w-20 shrink-0 overflow-hidden bg-[#F0E9E1] sm:h-36 sm:w-32"
                   >
                     {item.image ? (
                       <img src={item.image} alt={item.title} className="h-full w-full object-contain p-2" />
@@ -84,7 +84,7 @@ export default function CartPage() {
                   <div className="flex min-w-0 flex-1 flex-col">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <a href={"/shop/" + item.productId} className="font-serif text-lg leading-snug text-[#3A1825] hover:text-[#A88753]">
+                        <a href={"/shop/" + item.productId} className="font-serif text-base leading-snug text-[#3A1825] [overflow-wrap:anywhere] hover:text-[#A88753] sm:text-lg">
                           {item.title}
                         </a>
                         {item.options.length > 0 && (
@@ -93,7 +93,7 @@ export default function CartPage() {
                           </p>
                         )}
                       </div>
-                      <p className="shrink-0 text-sm text-[#3A1825]">
+                      <p className="max-w-[92px] shrink-0 text-right text-xs text-[#3A1825] sm:max-w-none sm:text-sm">
                         {formatPrice(item.price * item.quantity)}
                       </p>
                     </div>
@@ -105,16 +105,16 @@ export default function CartPage() {
                           onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1)}
                           disabled={item.quantity <= 1}
                           aria-label={"Decrease quantity of " + item.title}
-                          className="px-3 py-2 text-sm text-[#3A1825] disabled:opacity-30"
+                          className="px-2 py-1.5 text-xs text-[#3A1825] disabled:opacity-30 sm:px-3 sm:py-2 sm:text-sm"
                         >
                           −
                         </button>
-                        <span className="min-w-7 text-center text-xs">{item.quantity}</span>
+                        <span className="min-w-6 px-0.5 text-center text-[11px] tabular-nums sm:min-w-7 sm:text-xs">{item.quantity}</span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1)}
                           aria-label={"Increase quantity of " + item.title}
-                          className="px-3 py-2 text-sm text-[#3A1825]"
+                          className="px-2 py-1.5 text-xs text-[#3A1825] sm:px-3 sm:py-2 sm:text-sm"
                         >
                           +
                         </button>
