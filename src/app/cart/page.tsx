@@ -93,7 +93,7 @@ export default function CartPage() {
                         )}
                       </div>
                       <p className="shrink-0 text-sm text-[#3A1825]">
-                        {formatPrice(item.price * item.quantity)}
+                        {formatPrice((item.price * item.quantity) / 100)}
                       </p>
                     </div>
 
@@ -135,7 +135,7 @@ export default function CartPage() {
               <h2 className="font-serif text-2xl text-[#3A1825]">Selection overview</h2>
               <div className="mt-6 flex items-center justify-between border-b border-[#3A1825]/10 pb-4 text-sm">
                 <span className="text-[#75675D]">Displayed product total</span>
-                <span className="text-[#3A1825]">{formatPrice(subtotal)}</span>
+                <span className="text-[#3A1825]">{formatPrice(subtotal / 100)}</span>
               </div>
               <p className="mt-4 text-xs leading-5 text-[#75675D]">
                 This is a saved product selection only, not an order. LUNÉVIA is not currently accepting purchases or payments. Shipping and taxes have not been calculated, and displayed prices are for reference.
