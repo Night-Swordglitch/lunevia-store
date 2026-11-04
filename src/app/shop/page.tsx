@@ -343,7 +343,7 @@ export default function ShopPage() {
                     <div className="mt-4 flex items-center justify-between pt-2">
                       <span className="text-sm text-[#3A1825]">
                         {price !== null
-                          ? `From US${price.toFixed(2)}`
+                          ? `From US$${price.toFixed(2)}`
                           : "Price unavailable"}
                       </span>
 
