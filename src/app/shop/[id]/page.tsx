@@ -271,7 +271,7 @@ export default function ProductPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
+    <main className="min-h-screen w-full min-w-0 overflow-x-clip bg-[#FAF6F1] text-[#2C1A0E]">
       <header className="sticky top-0 z-50 bg-[#3A1825]">
         <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
           <div className="flex flex-col items-center pb-5">
@@ -299,9 +299,9 @@ export default function ProductPage() {
       </div>
 
 
-      <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-7 px-4 py-6 sm:gap-10 sm:px-8 sm:py-10 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-10 md:py-14">
+      <section className="mx-auto grid w-full min-w-0 max-w-6xl grid-cols-1 gap-7 px-4 py-6 sm:gap-10 sm:px-8 sm:py-10 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:gap-14 md:px-10 md:py-14">
         <div>
-          <div className="mx-auto flex aspect-square w-full max-w-[540px] items-center justify-center overflow-hidden bg-[#F3EDE7]">
+          <div className="mx-auto flex aspect-square w-full min-w-0 max-w-[540px] items-center justify-center overflow-hidden bg-[#F3EDE7]">
             {displayedImage?.src ? (
               <img
                 src={displayedImage.src}
@@ -351,8 +351,8 @@ export default function ProductPage() {
           )}
         </div>
 
-        <div className="mx-auto flex w-full max-w-2xl flex-col justify-center py-2 sm:py-4 md:py-8">
-          <h1 className="break-words font-serif text-2xl leading-tight text-[#3A1825] sm:text-3xl md:text-4xl lg:text-[2.75rem]">
+        <div className="mx-auto flex w-full min-w-0 max-w-2xl flex-col justify-center py-2 sm:py-4 md:py-8">
+          <h1 className="font-serif text-2xl leading-tight text-[#3A1825] [overflow-wrap:anywhere] sm:text-3xl md:text-4xl lg:text-[2.75rem]">
             {product.title}
           </h1>
 
@@ -460,7 +460,7 @@ export default function ProductPage() {
                     setSelectedVariant(Number(event.target.value));
                     setAddedToCart(false);
                   }}
-                  className="w-full appearance-none border border-[#3A1825]/20 bg-transparent px-4 py-3 text-sm text-[#3A1825] outline-none focus:border-[#C9A96E]"
+                  className="block w-full min-w-0 max-w-full appearance-none border border-[#3A1825]/20 bg-transparent px-3 py-2.5 text-xs text-[#3A1825] outline-none focus:border-[#C9A96E]"
                 >
                   {availableVariants.map((variant) => (
                     <option
@@ -468,7 +468,7 @@ export default function ProductPage() {
                       value={variant.id}
                       disabled={!variant.is_available}
                     >
-                      Selection {availableVariants.findIndex((item) => item.id === variant.id) + 1}
+                      Option {availableVariants.findIndex((item) => item.id === variant.id) + 1}
                       {" — "}{formatPrice(variant.price)}
                       {!variant.is_available ? " — Unavailable" : ""}
                     </option>
@@ -502,7 +502,7 @@ export default function ProductPage() {
             type="button"
             disabled={!activeVariant || !activeVariant.is_available || checkingAvailability}
             onClick={addSelectedToBag}
-            className="mt-5 w-full bg-[#3A1825] px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-4 block w-full max-w-[360px] self-start bg-[#3A1825] px-4 py-3 text-[9px] uppercase tracking-[0.12em] text-[#FAF6F1] transition hover:bg-[#542638] disabled:cursor-not-allowed disabled:opacity-40 sm:py-3.5"
           >
             {checkingAvailability
               ? "Checking availability..."
