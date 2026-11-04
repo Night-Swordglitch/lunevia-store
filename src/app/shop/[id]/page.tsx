@@ -230,7 +230,7 @@ export default function ProductPage() {
       }
 
       const latestProduct = (data.products || []).find(
-        (item: Product) => item.id === product.id
+        (item: Product) => item.id === id
       );
       const latestVariant = latestProduct?.variants.find(
         (variant: Variant) => variant.id === activeVariant.id
