@@ -23,11 +23,15 @@ export default function SiteFooter() {
             <a href="/" className="transition hover:text-[#C9A96E]">Home</a>
             <a href="/shop" className="transition hover:text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="transition hover:text-[#C9A96E]">Our Philosophy</a>
+            <a href="/contact" className="transition hover:text-[#C9A96E]">Contact</a>
           </nav>
         </div>
 
         <div className="mt-10 border-t border-[#FAF6F1]/15 pt-5 text-[10px] leading-5 text-[#D7C7C1]">
           <p>© {new Date().getFullYear()} LUNÉVIA. All rights reserved.</p>
+          <p className="mt-1">
+            <a href="mailto:shoplunevias@gmail.com" className="transition hover:text-[#C9A96E]">shoplunevias@gmail.com</a>
+          </p>
           <p className="mt-1">
             Purchasing is temporarily unavailable. Displayed prices are for reference only.
           </p>
