@@ -244,7 +244,7 @@ export default function ShopPage() {
           </div>
         )}
 
-        {comingSoonCategory || (!loading && !error && visibleProducts.length === 0) ? (
+        {(comingSoonCategory || (!loading && !error && visibleProducts.length === 0)) && (
           <div className="py-20 text-center">
             <p className="font-serif text-2xl text-[#3A1825]">
               {comingSoonCategory ? "Coming soon." : "No products in this collection yet."}
