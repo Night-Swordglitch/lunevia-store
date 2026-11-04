@@ -185,7 +185,7 @@ export default function ShopPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
-      <header className="sticky top-0 z-50 bg-[linear-gradient(180deg,#3A1825_0%,#4B2B37_22%,#684A56_44%,#8B707B_64%,#B9A7AD_82%,#FAF6F1_100%)]">
+      <header className="sticky top-0 z-50 bg-[#3A1825]">
         <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
           <div className="flex flex-col items-center pb-5">
             <a href="/" aria-label="LUNÉVIA home" className="font-serif text-2xl tracking-[0.2em] text-[#FAF6F1]">
