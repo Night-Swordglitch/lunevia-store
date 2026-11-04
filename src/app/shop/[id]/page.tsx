@@ -285,7 +285,7 @@ export default function ProductPage() {
 
           {activeVariant && (
             <p className="mt-3 text-base tracking-[0.02em] text-[#3A1825]">
-              {formatPrice(activeVariant.price)}
+              {formatPrice(activeVariant.price / 100)}
             </p>
           )}
 
@@ -396,7 +396,7 @@ export default function ProductPage() {
                       disabled={!variant.is_available}
                     >
                       Selection {availableVariants.findIndex((item) => item.id === variant.id) + 1}
-                      {" — "}{formatPrice(variant.price)}
+                      {" — "}{formatPrice(variant.price / 100)}
                       {!variant.is_available ? " — Unavailable" : ""}
                     </option>
                   ))}
