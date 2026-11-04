@@ -261,7 +261,7 @@ export default function ShopPage() {
         )}
 
         {!loading && !error && visibleProducts.length > 0 && (
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid w-full min-w-0 grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3">
             {visibleProducts.map((product) => {
               const price = getPrice(product);
               const image = product.images?.[0]?.src;
@@ -271,14 +271,14 @@ export default function ShopPage() {
                 <a
                   href={`/shop/${product.id}`}
                   key={product.id}
-                  className="group block"
+                  className="group block min-w-0 w-full"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F0E9E1]">
                     {image ? (
                       <img
                         src={image}
                         alt={product.title}
-                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                        className="h-full w-full object-contain p-3 transition duration-700 group-hover:scale-[1.02] sm:p-4"
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-sm text-[#A88753]">
@@ -289,7 +289,7 @@ export default function ShopPage() {
 </div>
 
                   <div className="pt-4">
-                    <h3 className="font-serif text-xl leading-snug text-[#3A1825]">
+                    <h3 className="break-words font-serif text-lg leading-snug text-[#3A1825] sm:text-xl">
                       {product.title}
                     </h3>
 
