@@ -1,5 +1,18 @@
 import { NextResponse } from "next/server";
 
+const launchProductIds = new Set([
+  "6ac27ab0d796ffb48e0f2ad3",
+  "6ac25346d01a18442904d9dd",
+  "6ac0b394d8f8171df3095d77",
+  "6ac0b132705d92cac403452a",
+  "6abf1a69add24cb68103efd0",
+  "6abe1f77ab5f91622f04ee9a",
+  "6abe1a041407957666064208",
+  "6abe08ed139455c65504a655",
+  "6abe058e4da6532539083189",
+  "6abdd441f79d4fc7940f66d1",
+]);
+
 export async function GET() {
   const token = process.env.PRINTIFY_API_TOKEN;
   const shopId = "29152028";
@@ -51,7 +64,14 @@ export async function GET() {
       page += 1;
     } while (page <= lastPage);
 
-    const formattedProducts = products.map((product: any) => ({
+    // Only expose the ten Printify products approved for the current launch.
+    // This prevents older, draft, or otherwise unapproved Printify catalogue
+    // entries from appearing in the storefront or being opened directly.
+    const launchProducts = products.filter((product: any) =>
+      launchProductIds.has(product.id)
+    );
+
+    const formattedProducts = launchProducts.map((product: any) => ({
       id: product.id,
       title: product.title,
       created_at: product.created_at ?? null,
@@ -72,7 +92,7 @@ export async function GET() {
     }));
 
     return NextResponse.json({
-      total: products.length,
+      total: formattedProducts.length,
       products: formattedProducts,
     });
   } catch {
