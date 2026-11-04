@@ -195,7 +195,7 @@ export default function ShopPage() {
           </div>
           <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-[#C9A96E]/40 py-4 font-serif text-[10px] font-bold uppercase tracking-[0.08em] text-[#FAF6F1] sm:gap-x-10 sm:text-[13px] sm:tracking-[0.12em] md:gap-x-14 md:text-sm md:tracking-[0.16em]">
             <a href="/" className="whitespace-nowrap transition hover:text-[#C9A96E]">Home</a>
-            <a href="/shop" className="whitespace-nowrap text-[#FAF6F1] transition hover:text-[#C9A96E]">Shop</a>
+            <a href="/shop" aria-current="page" className="whitespace-nowrap text-[#C9A96E]">Shop</a>
             <a href="/#philosophy" className="whitespace-nowrap transition hover:text-[#C9A96E]">Our Philosophy</a>
             <a href="/cart" aria-label={`Saved selection, ${cartCount} items`} className="inline-flex shrink-0 items-center gap-1.5 transition hover:text-[#C9A96E]">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px] sm:h-5 sm:w-5">
