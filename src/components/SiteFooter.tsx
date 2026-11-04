@@ -1,3 +1,5 @@
+import CurrencySelector from "@/components/CurrencySelector";
+
 export default function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-[#C9A96E]/30 bg-[#3A1825] text-[#FAF6F1]">
