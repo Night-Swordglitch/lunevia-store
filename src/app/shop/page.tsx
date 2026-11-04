@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCart } from "@/components/CartProvider";
+import { useCurrency } from "@/components/CurrencyProvider";
 
 type Variant = {
   id: number;
@@ -38,6 +39,7 @@ function cleanDescription(description: string) {
 
 export default function ShopPage() {
   const { cartCount } = useCart();
+  const { formatPrice } = useCurrency();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -343,7 +345,7 @@ export default function ShopPage() {
                     <div className="mt-4 flex items-center justify-between pt-2">
                       <span className="text-sm text-[#3A1825]">
                         {price !== null
-                          ? `From US$${price.toFixed(2)}`
+                          ? `From ${formatPrice(price)}`
                           : "Price unavailable"}
                       </span>
 
