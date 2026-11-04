@@ -141,7 +141,7 @@ export default function ShopPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FAF6F1] text-[#2C1A0E]">
+    <main className="min-h-screen w-full min-w-0 overflow-x-clip bg-[#FAF6F1] text-[#2C1A0E]">
       <header className="sticky top-0 z-50 bg-[#3A1825]">
         <div className="mx-auto max-w-7xl px-6 pt-5 md:px-10">
           <div className="flex flex-col items-center pb-5">
@@ -202,7 +202,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-20">
+      <section className="mx-auto w-full min-w-0 max-w-7xl px-4 py-12 sm:px-6 md:px-10 md:py-20">
         <div className="mb-10 flex flex-col justify-between gap-4 border-b border-[#3A1825]/10 pb-5 md:flex-row md:items-end">
           <div>
             <p className="text-[9px] tracking-[0.28em] text-[#A88753]">
@@ -261,7 +261,7 @@ export default function ShopPage() {
         )}
 
         {!loading && !error && visibleProducts.length > 0 && (
-          <div className="grid w-full min-w-0 grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3">
+          <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-x-5 gap-y-10 sm:grid-cols-[repeat(2,minmax(0,1fr))] sm:gap-x-6 lg:grid-cols-[repeat(3,minmax(0,1fr))]">
             {visibleProducts.map((product) => {
               const price = getPrice(product);
               const image = product.images?.[0]?.src;
@@ -271,14 +271,14 @@ export default function ShopPage() {
                 <a
                   href={`/shop/${product.id}`}
                   key={product.id}
-                  className="group block min-w-0 w-full"
+                  className="group block min-w-0 w-full max-w-full overflow-hidden"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#F0E9E1]">
                     {image ? (
                       <img
                         src={image}
                         alt={product.title}
-                        className="h-full w-full object-contain p-3 transition duration-700 group-hover:scale-[1.02] sm:p-4"
+                        className="block h-full w-full min-w-0 max-w-full object-contain p-2 transition duration-700 group-hover:scale-[1.02] sm:p-4"
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-sm text-[#A88753]">
@@ -289,7 +289,7 @@ export default function ShopPage() {
 </div>
 
                   <div className="pt-4">
-                    <h3 className="break-words font-serif text-lg leading-snug text-[#3A1825] sm:text-xl">
+                    <h3 className="font-serif text-lg leading-snug text-[#3A1825] [overflow-wrap:anywhere] sm:text-xl">
                       {product.title}
                     </h3>
 
@@ -299,7 +299,7 @@ export default function ShopPage() {
                       </p>
                     )}
 
-                    <div className="mt-4 flex items-center justify-between pt-2">
+                    <div className="mt-4 flex min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 pt-2">
                       <span className="text-sm text-[#3A1825]">
                         {price !== null
                           ? "From US$" + price.toFixed(2)
