@@ -38,7 +38,11 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
         setRates(next);
       })
       .catch(() => {
-        // Prices remain correctly denominated in USD until reference rates load.
+        if (cancelled) return;
+        setCurrencyState("USD");
+        try { window.localStorage.setItem("lunevia-currency", "USD"); } catch {
+          // USD remains the in-memory fallback.
+        }
       });
 
     return () => { cancelled = true; };
