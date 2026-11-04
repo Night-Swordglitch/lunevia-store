@@ -49,6 +49,7 @@ export default function ShopPage() {
 
   const shopCategories = [
     { slug: "new-arrivals", name: "New Arrivals" },
+    { slug: "home-living", name: "Home & Living" },
     { slug: "accessories", name: "Accessories" },
     { slug: "everyday-essentials", name: "Everyday Essentials" },
     { slug: "beauty-care", name: "Beauty" },
