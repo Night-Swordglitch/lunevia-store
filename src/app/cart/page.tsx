@@ -3,7 +3,7 @@
 import { useCart } from "@/components/CartProvider";
 
 function formatPrice(price: number) {
-  return "S$" + (price / 100).toFixed(2);
+  return "US$" + (price / 100).toFixed(2);
 }
 
 export default function CartPage() {
