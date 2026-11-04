@@ -85,7 +85,9 @@ export default function ShopPage() {
     return productCategories[product.id]?.includes(selectedCategory) ?? false;
   }
 
-  const visibleProducts = category === "new-arrivals"
+  const visibleProducts = category === "home-living"
+    ? []
+    : category === "new-arrivals"
     ? [...products]
         .filter((product) => Boolean(product.created_at))
         .sort(
@@ -211,12 +213,14 @@ export default function ShopPage() {
             </h2>
           </div>
 
-          <p className="text-xs text-[#75675D]">
-            {loading ? "Loading the collection..." : `${visibleProducts.length} products`}
-          </p>
+          {category !== "home-living" && (
+            <p className="text-xs text-[#75675D]">
+              {loading ? "Loading the collection..." : `${visibleProducts.length} products`}
+            </p>
+          )}
         </div>
 
-        {loading && (
+        {category !== "home-living" && loading && (
           <div className="py-24 text-center">
             <p className="font-serif text-2xl text-[#3A1825]">
               Preparing your selection...
@@ -227,7 +231,7 @@ export default function ShopPage() {
           </div>
         )}
 
-        {error && (
+        {category !== "home-living" && error && (
           <div className="border border-red-200 bg-red-50 p-8 text-center">
             <p className="font-serif text-xl text-red-900">
               We could not load the collection
@@ -245,16 +249,18 @@ export default function ShopPage() {
         {!loading && !error && visibleProducts.length === 0 && (
           <div className="py-20 text-center">
             <p className="font-serif text-2xl text-[#3A1825]">
-              {category === "beauty-care" ? "Coming soon." : "No products in this collection yet."}
+              {category === "beauty-care" || category === "home-living" ? "Coming soon." : "No products in this collection yet."}
             </p>
             <p className="mt-3 text-sm text-[#75675D]">
-              {category === "beauty-care"
+              {category === "beauty-care" || category === "home-living"
                 ? "We're thoughtfully curating this collection. Please check back soon."
                 : "Explore the full LUNÉVIA collection to discover all available pieces."}
             </p>
-            <a href="/shop" className="mt-6 inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.18em] text-[#3A1825]">
-              View all pieces
-            </a>
+            {category !== "home-living" && (
+              <a href="/shop" className="mt-6 inline-block border-b border-[#3A1825] pb-2 text-[10px] uppercase tracking-[0.18em] text-[#3A1825]">
+                View all pieces
+              </a>
+            )}
           </div>
         )}
 
