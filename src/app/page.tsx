@@ -17,7 +17,7 @@ const collections = [
     description: "Considered details for the spaces you call yours.",
     image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900",
     href: "/shop?category=home-living",
-    comingSoon: false,
+    comingSoon: true,
   },
   {
     number: "03",
