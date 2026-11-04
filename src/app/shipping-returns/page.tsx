@@ -51,6 +51,7 @@ export default function ShippingReturnsPage() {
           <section>
             <h2 className="font-serif text-2xl text-[#3A1825]">5. Delivery problems</h2>
             <p className="mt-3">If tracking appears stalled, a parcel has not arrived, or delivery was unsuccessful, contact us with your order number and the latest tracking information. We will review the case with the fulfilment provider. Resolutions depend on the circumstances and the provider’s investigation.</p>
+            <p className="mt-3">For a parcel that has not been delivered, Printify’s current claim windows differ by destination: 30 calendar days for domestic US or regional EU orders, and 45 calendar days for international orders. If the parcel is still missing after the applicable period, the issue generally needs to be reported within the following week. These are Printify merchant-claim timeframes, not guaranteed delivery estimates; eligibility depends on the provider’s investigation and the circumstances of the shipment.</p>
           </section>
           <section>
             <h2 className="font-serif text-2xl text-[#3A1825]">6. Contact</h2>
