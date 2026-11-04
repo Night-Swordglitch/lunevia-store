@@ -1,6 +1,6 @@
 export default function SiteFooter() {
   return (
-    <footer className="bg-[#3A1825] px-6 py-12 text-[#FAF6F1] md:px-10">
+    <footer className="bg-[#452332] px-6 py-12 text-[#FAF6F1] md:px-10">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <a href="/" className="font-serif text-2xl tracking-[0.18em] text-[#FAF6F1]">
