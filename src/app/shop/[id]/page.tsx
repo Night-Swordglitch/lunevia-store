@@ -201,7 +201,7 @@ export default function ProductPage() {
     const nextVariant = exactMatch || matchingOption;
     if (nextVariant) {
       setSelectedVariant(nextVariant.id);
-      const variantImage = product.images.findIndex((image) =>
+      const variantImage = product?.images.findIndex((image) =>
         image.variant_ids?.includes(nextVariant.id)
       );
       if (variantImage >= 0) setSelectedImage(variantImage);
