@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useCart } from "@/components/CartProvider";
+import { useCurrency } from "@/components/CurrencyProvider";
 
 type Variant = {
   id: number;
@@ -46,6 +47,7 @@ export default function ProductPage() {
   const params = useParams();
   const id = params.id as string;
   const { addItem, cartCount } = useCart();
+  const { formatPrice } = useCurrency();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -134,7 +136,6 @@ export default function ProductPage() {
     (variant) => variant.id === selectedVariant
   );
 
-  const formatPrice = (price: number) => "US$" + (price / 100).toFixed(2);
   const description = cleanDescription(product.description || "");
 
   const optionNames = product.options?.length
